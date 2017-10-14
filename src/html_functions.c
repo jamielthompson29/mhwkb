@@ -44,7 +44,7 @@ void create_html_header (char *html_file, char *title)
 <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n\
 <title>%s</title>\n", title);
   fprintf (fp, "\
-<link rel=\"stylesheet\" type=\"text/css\"href=\"mhwkb_style.css\">\n\
+<link rel=\"stylesheet\" type=\"text/css\" href=\"mhwkb_style.css\">\n\
 </head>\n\
 <body>\n\
 <h1>%s</h1>\n", title);

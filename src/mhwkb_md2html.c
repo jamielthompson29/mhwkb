@@ -163,14 +163,33 @@ main (int argc, char **argv)
         /* get the tags */
         fgets (md_line, 512, md_file);
 
+        /* tokenize the "tags" line */
+
         tag_Ptr = strtok (md_line, ",");
 
         int tag_ctr = 0;
 
+        /* pointer to each tag. Used to check for a space in a tag and
+         * replace to an underscore */
+        char *tp;
+
         while (tag_Ptr != NULL)
         {
+
+          tp = &tag_Ptr[0];
+
+          while (*tp != '\0')
+          {
+            if (*tp != ' ')
+            {}
+            else
+              *tp = '_';
+
+            tp++;
+          }
+
           strcpy (tags[tag_ctr], tag_Ptr);
-          /* printf ("%s\n", tags[tag_ctr]); */
+
           tag_Ptr = strtok (NULL, ",");
 
           tag_ctr++;
@@ -269,9 +288,6 @@ main (int argc, char **argv)
             perror ("failure: close file\n");
             exit (1);
           }
-
-          printf ("\n");
-
         }
 
         free (date_line);
