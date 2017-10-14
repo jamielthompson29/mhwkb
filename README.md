@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/andy5995/mhwkb.svg?branch=master)](https://travis-ci.org/andy5995/mhwkb)
+
 # mhwKB
 Mental Health and Wellness Knowledge Base
 
