@@ -21,6 +21,10 @@
  *
  */
 
+#ifndef HTML_FUNCTIONS_C
+#define HTML_FUNCTIONS_C
+
+#include "html_functions.h"
 
 void create_html_header (char *html_file, char *title)
 {
@@ -63,3 +67,4 @@ void create_html_footer (FILE *html_file)
 </html>\n");
 }
 
+#endif

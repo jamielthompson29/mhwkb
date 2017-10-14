@@ -32,27 +32,20 @@
 #include <dirent.h>
 #include <errno.h>
 #include <unistd.h>
+#include "html_functions.h"
 
 #define EXIT_NO_ARGS 2
 #define EXIT_OPENDIR_FAILURE 4
-
 
 #define VERSION ".0.0.05"
 #define DATE "2017-10-11"
 
 #define MAX_TAG_COUNT 500
 
-
-/* function prototypes */
-void create_html_header (char *html_file, char *title);
-void create_html_footer (FILE *html_file);
-
 void erase_char (char *str, char c);
 void trim_char (char *str, char c);
 
 int exists (const char *filename);
-
-#include "html_functions.c"
 
 int
 main (int argc, char **argv)
