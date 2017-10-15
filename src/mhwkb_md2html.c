@@ -33,14 +33,18 @@
 #include <unistd.h>
 #include "template_functions.h"
 
-#define EXIT_NO_ARGS 2
+#define EXIT_INVALID_ARGS 2
 #define EXIT_OPENDIR_FAILURE 4
 
-#define VERSION ".0.0.06"
+#define VERSION ".0.0.09"
 #define DATE "2017-10-15"
 
 #define MAX_ARTICLES 500
 #define MAX_TAG_COUNT 500
+
+#define TEMPLATE_INDEX_PATH "../templates/index.html"
+#define TEMPLATE_ARTICLE_PATH "../templates/article.html"
+#define TEMPLATE_ARTLNK_PATH "../templates/article_link.html"
 
 void erase_char (char *str, char c);
 void trim_char (char *str, char c);
@@ -48,14 +52,25 @@ void trim_char (char *str, char c);
 int
 main (int argc, char **argv)
 {
-  char *starting_dir = getenv ("PWD");
-
-  if (argc == 1)
+  /* FIXME: Check for existence of directories */
+  if (argc != 3)
   {
-    printf ("Usage: %s <md_file_dir>\n", argv[0]);
-    printf ("  html files will be output to $PWD: %s\n\n", starting_dir);
-    exit (EXIT_NO_ARGS);
+    printf ("Usage: %s <md_file_dir> <starting_dir>\n", argv[0]);
+    exit (EXIT_INVALID_ARGS);
   }
+
+  /* FIXME: This var should be changed to "output_dir" */
+  char starting_dir[PATH_MAX];
+
+  if (realpath (argv[2], starting_dir) == NULL)
+  {
+    perror ("realpath: failure");
+    exit (EXIT_FAILURE);
+  }
+
+  strcat (starting_dir, "/");
+  /* FIXME: display this and ask for confirmation */
+  printf ("  html files will be output to: %s\n\n", starting_dir);
 
   struct dirent *entry;
   DIR *files;
@@ -71,7 +86,6 @@ main (int argc, char **argv)
   char *articles[MAX_ARTICLES];
   int article_length = 0;
 
-  int status;
   chdir (argv[1]);
   while ((entry = readdir (files)) != NULL)
   {
@@ -96,12 +110,6 @@ main (int argc, char **argv)
     int i, href_pos;
 
     char *tag_Ptr = malloc (sizeof (char *));
-
-    /* accumulates tags used to determine if the rel=nofollow attr
-     * should be applied to <a> tags
-     * Not yet implemented
-     */
-    char combined_tags[MAX_TAG_COUNT][256];
 
     while (fgets (md_line, 512, md_file) != NULL)
     {
@@ -218,7 +226,7 @@ main (int argc, char **argv)
 
           const char *keys[] = { "link", "title" };
           const char *values[] = { tag_html, tags[i] };
-          char *article_link = render_template("../templates/article_link.html", 2, keys, values);
+          char *article_link = render_template(TEMPLATE_ARTLNK_PATH, 2, keys, values);
           strcat(article_links, article_link);
           free(article_link);
 
@@ -231,7 +239,7 @@ main (int argc, char **argv)
         // Render the article templates
         const char *keys[] = { "link", "title", "date", "article_links" };
         const char *values[] = { link_href, link_title, date_line, article_links };
-        char *article_template = render_template("../templates/article.html", 4, keys, values);
+        char *article_template = render_template(TEMPLATE_ARTICLE_PATH, 4, keys, values);
         free(article_links);
 
         // Error if we are about to over flow MAX_ARTICLES
@@ -249,7 +257,6 @@ main (int argc, char **argv)
         {
           char html_tag_file[256];
           strcpy (html_tag_file, starting_dir);
-          strcat (html_tag_file, "/");
           strcat (html_tag_file, tags[i]);
           strcat (html_tag_file, ".html");
 
@@ -268,7 +275,7 @@ main (int argc, char **argv)
 
             const char *link_keys[] = { "link", "title" };
             const char *link_values[] = { tag_html, tags[tag] };
-            char *link_template = render_template("../templates/article_link.html", 2, link_keys, link_values);
+            char *link_template = render_template(TEMPLATE_ARTLNK_PATH, 2, link_keys, link_values);
 
             strcat (tags_tag, link_template);
             strcat (tags_tag, ", ");
@@ -278,7 +285,7 @@ main (int argc, char **argv)
 
           const char *link_keys[] = { "link", "title" };
           const char *link_values[] = { tag_html, tags[tag] };
-          char *link_template = render_template("../templates/article_link.html", 2, link_keys, link_values);
+          char *link_template = render_template(TEMPLATE_ARTLNK_PATH, 2, link_keys, link_values);
 
           strcat (tags_tag, link_template);
           strcat (tags_tag, "<br /><br />");
@@ -288,13 +295,14 @@ main (int argc, char **argv)
           // Render the article templates
           const char *article_keys[] = { "link", "title", "date", "article_links" };
           const char *article_values[] = { link_href, link_title, date_line, tags_tag };
-          char *article_template = render_template("../templates/article.html", 4, article_keys, article_values);
+          char *article_template = render_template(TEMPLATE_ARTICLE_PATH, 4, article_keys, article_values);
 
           // Save the file
           FILE *fp = fopen (html_tag_file, "a");
           if (fp == NULL)
           {
             perror ("failure: open file\n");
+            printf ("%s\n", html_tag_file);
             exit (1);
           }
 
@@ -346,7 +354,6 @@ main (int argc, char **argv)
     char fullfilename[strlen(starting_dir) + 1 + strlen(entry->d_name) + 1];
     memset(fullfilename, 0, strlen(starting_dir) + 1 + strlen(entry->d_name) + 1);
     strcat(fullfilename, starting_dir);
-    strcat(fullfilename, "/");
     strcat(fullfilename, entry->d_name);
 
     printf("%s\n", fullfilename);
@@ -361,13 +368,14 @@ main (int argc, char **argv)
     // Render the index templates
     const char *index_keys[] = { "title", "body" };
     const char *index_values[] = { title_tag, tag_contents };
-    char *index_template = render_template ("./templates/index.html", 2, index_keys, index_values);
+    char *index_template = render_template (TEMPLATE_INDEX_PATH, 2, index_keys, index_values);
     free(tag_contents);
 
     FILE *fp = fopen (entry->d_name, "w+");
     if (fp == NULL)
     {
       perror ("failure: open file\n");
+      printf ("%s\n", entry->d_name);
       exit (1);
     }
 
@@ -399,6 +407,7 @@ main (int argc, char **argv)
   if (fp_index == NULL)
   {
     perror ("failure: open file\n");
+    printf ("%s\n", index_html);
     exit (1);
   }
 
@@ -418,7 +427,7 @@ main (int argc, char **argv)
 
   const char *index_keys[] = { "title", "body" };
   const char *index_values[] = { title_main, all_articles };
-  char *index_template = render_template("./templates/index.html", 2, index_keys, index_values);
+  char *index_template = render_template(TEMPLATE_INDEX_PATH, 2, index_keys, index_values);
   fprintf (fp_index, "%s", index_template);
   free(index_template);
 

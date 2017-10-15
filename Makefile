@@ -17,7 +17,7 @@ HEADERS = $(wildcard src/*.h)
 .PRECIOUS: $(TARGET) $(OBJECTS)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(OBJECTS) -Wall $(LIBS) -o $@
+	$(CC) $(OBJECTS) -std=gnu99 -Wall $(LIBS) -o $@
 
 clean:
 	-rm -f *.html
