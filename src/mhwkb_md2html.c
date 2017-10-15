@@ -26,26 +26,24 @@
  */
 
 #include <stdio.h>
-#include <sys/stat.h>
 #include <stdlib.h>
 #include <string.h>
 #include <dirent.h>
 #include <errno.h>
 #include <unistd.h>
-#include "html_functions.h"
+#include "template_functions.h"
 
 #define EXIT_NO_ARGS 2
 #define EXIT_OPENDIR_FAILURE 4
 
-#define VERSION ".0.0.05"
-#define DATE "2017-10-11"
+#define VERSION ".0.0.06"
+#define DATE "2017-10-15"
 
+#define MAX_ARTICLES 500
 #define MAX_TAG_COUNT 500
 
 void erase_char (char *str, char c);
 void trim_char (char *str, char c);
-
-int exists (const char *filename);
 
 int
 main (int argc, char **argv)
@@ -59,19 +57,6 @@ main (int argc, char **argv)
     exit (EXIT_NO_ARGS);
   }
 
-  char index_html[256];
-  strcpy (index_html, starting_dir);
-  strcat (index_html, "/");
-  strcat (index_html, "index.html");
-
-  if (exists (index_html) != 0)
-  {
-    char title_main[256];
-    strcpy (title_main, "Home (Under Construction)");
-    strcat (title_main, " - Mental Health and Wellness Knowledge Base");
-    create_html_header (index_html, title_main);
-  }
-
   struct dirent *entry;
   DIR *files;
   files = opendir (argv[1]);
@@ -83,12 +68,15 @@ main (int argc, char **argv)
 
   printf ("%s\n", argv[1]);
 
+  char *articles[MAX_ARTICLES];
+  int article_length = 0;
+
   int status;
   chdir (argv[1]);
   while ((entry = readdir (files)) != NULL)
   {
-    /* needs fixing. Only read .md files */
-    if (strcmp (entry->d_name, ".md") == 0)
+    /* Only read .md files */
+    if (strstr (entry->d_name, ".md") == NULL)
       continue;
 
     FILE *md_file = fopen (entry->d_name, "r");
@@ -124,15 +112,6 @@ main (int argc, char **argv)
       {
         char tag_html[256];
 
-        FILE *fp_index;
-        fp_index = fopen (index_html, "a");
-
-        if (fp_index == NULL)
-        {
-          perror ("failure: open file\n");
-          exit (1);
-        }
-
         for (i = 0; md_line[i] != ']'; i++)
         {
           if (md_line[i] != '[')
@@ -153,12 +132,11 @@ main (int argc, char **argv)
             link_href[href_pos++] = md_line[i];
         }
         link_href[href_pos++] = '\0';
-        fprintf (fp_index, "<a class=\"title\" href=\"%s\">%s</a><br />\n", link_href, link_title);
 
+        // Get the date
         fgets (md_line, 512, md_file);
         char *date_line = malloc (sizeof (date_line));
         strcpy (date_line, md_line);
-        fprintf (fp_index, "<p class=\"date\">date: %s</p>\n", date_line);
 
         /* get the tags */
         fgets (md_line, 512, md_file);
@@ -195,6 +173,9 @@ main (int argc, char **argv)
           tag_ctr++;
         }
 
+        char *article_links = malloc(512 + 1);
+        memset(article_links, 0, 512 + 1);
+
         for (i = 0; i < tag_ctr; i++)
         {
           while (tags[i][0] != '[' && i == 0)
@@ -220,7 +201,6 @@ main (int argc, char **argv)
             trim_char (tags[i], '"');
             strcpy (tag_html, tags[i]);
             strcat (tag_html, ".html");
-            fprintf (fp_index, "<a href=\"%s\">%s</a>, ", tag_html, tags[i]);
           }
           else
           {
@@ -234,9 +214,33 @@ main (int argc, char **argv)
             tags[i][pos] = '\0';
             strcpy (tag_html, tags[i]);
             strcat (tag_html, ".html");
-            fprintf (fp_index, "<a href=\"%s\">%s</a><br /><br />\n", tag_html, tags[i]);
           }
+
+          const char *keys[] = { "link", "title" };
+          const char *values[] = { tag_html, tags[i] };
+          char *article_link = render_template("../templates/article_link.html", 2, keys, values);
+          strcat(article_links, article_link);
+          free(article_link);
+
+          if (i < tag_ctr - 1)
+            strcat(article_links, ", ");
+          else
+            strcat(article_links, "<br /><br />\n");
         }
+
+        // Render the article templates
+        const char *keys[] = { "link", "title", "date", "article_links" };
+        const char *values[] = { link_href, link_title, date_line, article_links };
+        char *article_template = render_template("../templates/article.html", 4, keys, values);
+        free(article_links);
+
+        // Error if we are about to over flow MAX_ARTICLES
+        if(article_length >= MAX_ARTICLES) {
+          perror ("failure: over MAX_ARTICLES");
+          exit(1);
+        }
+
+        articles[article_length++] = article_template;
 
         /* Now that we know all the tags for one entry, make the <tag>.html
          * files
@@ -254,34 +258,48 @@ main (int argc, char **argv)
           strcat (title_tag, " (Under Construction)");
           strcat (title_tag, " - Mental Health and Wellness Knowledge Base");
 
-          if (exists (html_tag_file) != 0)
+          char tags_tag[512+1];
+          memset(tags_tag, 0, 512 + 1);
+          int tag;
+          for (tag = 0; tag < tag_ctr - 1; tag++)
           {
-            create_html_header (html_tag_file, title_tag);
+            strcpy (tag_html, tags[tag]);
+            strcat (tag_html, ".html");
+
+            const char *link_keys[] = { "link", "title" };
+            const char *link_values[] = { tag_html, tags[tag] };
+            char *link_template = render_template("../templates/article_link.html", 2, link_keys, link_values);
+
+            strcat (tags_tag, link_template);
+            strcat (tags_tag, ", ");
+
+            free(link_template);
           }
 
-          FILE *fp;
+          const char *link_keys[] = { "link", "title" };
+          const char *link_values[] = { tag_html, tags[tag] };
+          char *link_template = render_template("../templates/article_link.html", 2, link_keys, link_values);
 
-          fp = fopen (html_tag_file, "a");
+          strcat (tags_tag, link_template);
+          strcat (tags_tag, "<br /><br />");
 
+          free(link_template);
+
+          // Render the article templates
+          const char *article_keys[] = { "link", "title", "date", "article_links" };
+          const char *article_values[] = { link_href, link_title, date_line, tags_tag };
+          char *article_template = render_template("../templates/article.html", 4, article_keys, article_values);
+
+          // Save the file
+          FILE *fp = fopen (html_tag_file, "a");
           if (fp == NULL)
           {
             perror ("failure: open file\n");
             exit (1);
           }
 
-          fprintf (fp, "<a class=\"title\" href=\"%s\">%s</a><br />\n", link_href, link_title);
-          fprintf (fp, "<p class=\"date\">date: %s</p>\n", date_line);
-
-          int tag;
-          for (tag = 0; tag < tag_ctr - 1; tag++)
-          {
-            strcpy (tag_html, tags[tag]);
-            strcat (tag_html, ".html");
-            fprintf (fp, "<a href=\"%s\">%s</a>, ", tag_html, tags[tag]);
-          }
-
-          /* add the last hyperlinked tag in the list (no comma printed) */
-          fprintf (fp, "<a href=\"%s\">%s</a><br /><br />", tag_html, tags[tag]);
+          fprintf (fp, "%s", article_template);
+          free(article_template);
 
           if (fclose (fp) != 0)
           {
@@ -291,56 +309,70 @@ main (int argc, char **argv)
         }
 
         free (date_line);
-
-        if (fclose (fp_index) != 0)
-        {
-          perror ("failure: close file\n");
-          exit (1);
-        }
-
       }
     }
 
     free (tag_Ptr);
-
 
     if (fclose (md_file) != 0)
     {
       perror ("failure: close file\n");
       exit (1);
     }
-
   }
 
-  status = closedir (files);
-  if (status)
-    perror ("closedir");
-
-  /* struct dirent *entry; */
-
-  files = opendir (starting_dir);
-
-  if (files == NULL)
+  // Read the directory for all articles that are not index
+  // Overwrite with the contents inserted into the index template
+  // for the header and footer
+  DIR *article_files = opendir (starting_dir);
+  if (article_files == NULL)
   {
     perror ("opendir");
     exit (EXIT_OPENDIR_FAILURE);
   }
 
   chdir (starting_dir);
-
-  while ((entry = readdir (files)) != NULL)
+  while ((entry = readdir (article_files)) != NULL)
   {
-    if ((strcmp (entry->d_name, ".") == 0) || (strcmp (entry->d_name, "..") == 0))
+    // Get the file contents to insert inside the template and rewrite
+    if (strstr (entry->d_name, ".html") == NULL)
       continue;
 
-    FILE *fp = fopen (entry->d_name, "a");
+    int title_len = strlen(entry->d_name) - 5;
+    char title_tag[title_len + 1];
+    memset(title_tag, 0, title_len + 1);
+    strncpy(title_tag, entry->d_name, title_len);
+
+    char fullfilename[strlen(starting_dir) + 1 + strlen(entry->d_name) + 1];
+    memset(fullfilename, 0, strlen(starting_dir) + 1 + strlen(entry->d_name) + 1);
+    strcat(fullfilename, starting_dir);
+    strcat(fullfilename, "/");
+    strcat(fullfilename, entry->d_name);
+
+    printf("%s\n", fullfilename);
+
+    char* tag_contents = read_file_contents(entry->d_name);
+    if(tag_contents == NULL)
+    {
+      perror("failure: file not read");
+      exit(1);
+    }
+
+    // Render the index templates
+    const char *index_keys[] = { "title", "body" };
+    const char *index_values[] = { title_tag, tag_contents };
+    char *index_template = render_template ("./templates/index.html", 2, index_keys, index_values);
+    free(tag_contents);
+
+    FILE *fp = fopen (entry->d_name, "w+");
     if (fp == NULL)
     {
       perror ("failure: open file\n");
       exit (1);
     }
 
-    create_html_footer (fp);
+    fprintf (fp, "%s", index_template);
+    free(index_template);
 
     if (fclose (fp) != 0)
     {
@@ -349,9 +381,52 @@ main (int argc, char **argv)
     }
   }
 
-  status = closedir (files);
-  if (status)
-    perror ("closedir");
+  // Write the index file
+  char index_html[256];
+  strcpy (index_html, starting_dir);
+  strcat (index_html, "/");
+  strcat (index_html, "index.html");
+
+  char title_main[256];
+  title_main[0] = '\0';
+  if (exists (index_html) != 0)
+  {
+    strcpy (title_main, "Home (Under Construction)");
+    strcat (title_main, " - Mental Health and Wellness Knowledge Base");
+  }
+
+  FILE *fp_index = fopen (index_html, "a");
+  if (fp_index == NULL)
+  {
+    perror ("failure: open file\n");
+    exit (1);
+  }
+
+  int all_content_length = 0;
+  int i = 0;
+  for(i = 0; i < article_length; ++i)
+  {
+    all_content_length += strlen(articles[i]);
+  }
+  char all_articles[all_content_length + 1];
+  memset(all_articles, 0, all_content_length + 1);
+  for(i = 0; i < article_length; ++i)
+  {
+    strcat(all_articles, articles[i]);
+    free(articles[i]);
+  }
+
+  const char *index_keys[] = { "title", "body" };
+  const char *index_values[] = { title_main, all_articles };
+  char *index_template = render_template("./templates/index.html", 2, index_keys, index_values);
+  fprintf (fp_index, "%s", index_template);
+  free(index_template);
+
+  if (fclose (fp_index) != 0)
+  {
+    perror ("failure: close file\n");
+    exit (1);
+  }
 
   return 0;
 }
@@ -397,19 +472,4 @@ trim_char (char *str, char c)
   str[len] = '\0';
 
   return;
-}
-
-/**
- * int exists (const char *filename);
- * Checks for the existence of *filename. On error, uses perror() to
- * display the reason
- *
- * return: the return value of lstat()
- */
-int
-exists (const char *filename)
-{
-  struct stat st;
-
-  return (lstat (filename, &st));
 }
