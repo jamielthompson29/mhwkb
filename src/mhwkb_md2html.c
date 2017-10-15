@@ -36,7 +36,7 @@
 #define EXIT_NO_ARGS 2
 #define EXIT_OPENDIR_FAILURE 4
 
-#define VERSION ".0.0.06"
+#define VERSION ".0.0.07"
 #define DATE "2017-10-15"
 
 #define MAX_ARTICLES 500
@@ -71,7 +71,6 @@ main (int argc, char **argv)
   char *articles[MAX_ARTICLES];
   int article_length = 0;
 
-  int status;
   chdir (argv[1]);
   while ((entry = readdir (files)) != NULL)
   {
@@ -96,12 +95,6 @@ main (int argc, char **argv)
     int i, href_pos;
 
     char *tag_Ptr = malloc (sizeof (char *));
-
-    /* accumulates tags used to determine if the rel=nofollow attr
-     * should be applied to <a> tags
-     * Not yet implemented
-     */
-    char combined_tags[MAX_TAG_COUNT][256];
 
     while (fgets (md_line, 512, md_file) != NULL)
     {
