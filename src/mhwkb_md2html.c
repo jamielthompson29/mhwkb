@@ -403,16 +403,17 @@ main (int argc, char **argv)
   }
 
   int all_content_length = 0;
-  for(int x = 0; x < article_length; ++x)
+  int i = 0;
+  for(i = 0; i < article_length; ++i)
   {
-    all_content_length += strlen(articles[x]);
+    all_content_length += strlen(articles[i]);
   }
   char all_articles[all_content_length + 1];
   memset(all_articles, 0, all_content_length + 1);
-  for(int x = 0; x < article_length; ++x)
+  for(i = 0; i < article_length; ++i)
   {
-    strcat(all_articles, articles[x]);
-    free(articles[x]);
+    strcat(all_articles, articles[i]);
+    free(articles[i]);
   }
 
   const char *index_keys[] = { "title", "body" };
