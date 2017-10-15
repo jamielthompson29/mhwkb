@@ -99,7 +99,8 @@ char *render_template(const char* filename, int len, const char *keys[], const c
   char *template = read_file_contents(filename);
   if(template != NULL)
   {
-    for(int x = 0; x < len; ++x)
+    int x = 0;
+    for(x = 0; x < len; ++x)
     {
       char *processed = set_template_var(template, keys[x], values[x]);
       free(template);
