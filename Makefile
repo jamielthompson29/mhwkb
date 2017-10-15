@@ -20,5 +20,6 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) -Wall $(LIBS) -o $@
 
 clean:
+	-rm -f *.html
 	-rm -f src/*.o
 	-rm -f $(TARGET)
