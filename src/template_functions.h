@@ -1,7 +1,8 @@
 /*
  * template_functions.h
- * Provides HTML template functionality.
- * https://github.com/andy5995/mhwkb
+ * https://github.com/dafky2000/simplectemplate
+ *
+ * Provides HTML template functionality for https://github.com/andy5995/mhwkb
  *
  * Copyright 2017 Andy Alt <andy400-dev@yahoo.com>
  *
