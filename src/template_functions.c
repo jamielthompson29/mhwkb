@@ -1,9 +1,8 @@
 /*
  * template_functions.c
- * Provides HTML template functionality.
- * https://github.com/andy5995/mhwkb
+ * Provides HTML template functionality for https://github.com/andy5995/mhwkb
  *
- * Copyright 2017 Andy Alt <andy400-dev@yahoo.com>
+ * Copyright 2017 Daniel Kelly <myself@danielkelly.me>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,26 +24,12 @@
 
 #include "template_functions.h"
 
-/**
- * int exists (const char *filename);
- * Checks for the existence of *filename. On error, uses perror() to
- * display the reason
- *
- * return: the return value of lstat()
- */
-int
-exists (const char *filename)
+int exists (const char *filename)
 {
   struct stat st;
   return (lstat (filename, &st));
 }
 
-/**
- * int read_file_contents (const char *filename, char *contents);
- * filename: name of file to read
- * return: NULL == cant read file or does not exist
- *         Otherwise, the file contents null terminated
- */
 char* read_file_contents (const char *filename)
 {
   if(exists (filename) != 0) 

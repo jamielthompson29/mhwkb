@@ -36,8 +36,8 @@
 #define EXIT_NO_ARGS 2
 #define EXIT_OPENDIR_FAILURE 4
 
-#define VERSION ".0.0.05"
-#define DATE "2017-10-11"
+#define VERSION ".0.0.06"
+#define DATE "2017-10-15"
 
 #define MAX_ARTICLES 500
 #define MAX_TAG_COUNT 500
