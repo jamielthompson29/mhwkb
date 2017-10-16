@@ -48,12 +48,15 @@
 #define TAG_MAX_NUM 20
 #define TAG_MAX_LEN 80
 
+#define LINK_MAX_LEN 512
+
 #define TEMPLATE_INDEX_PATH "../templates/index.html"
 #define TEMPLATE_ARTICLE_PATH "../templates/article.html"
 #define TEMPLATE_ARTLNK_PATH "../templates/article_link.html"
 
 void erase_char (char *str, char c);
 void trim_char (char *str, char c);
+void buf_check (const char *str, const int len);
 
 int
 main (int argc, char **argv)
@@ -107,7 +110,7 @@ main (int argc, char **argv)
       exit (1);
     }
 
-    char link_href[256];
+    char link_href[LINK_MAX_LEN];
     char link_title[256];
     char md_line[LINE_MAX_LEN];
 
@@ -188,8 +191,8 @@ main (int argc, char **argv)
           tag_ctr++;
         }
 
-        char *article_links = malloc(512 + 1);
-        memset(article_links, 0, 512 + 1);
+        char *article_links = malloc(LINK_MAX_LEN + 1);
+        memset(article_links, 0, LINK_MAX_LEN + 1);
 
         for (i = 0; i < tag_ctr; i++)
         {
@@ -232,8 +235,15 @@ main (int argc, char **argv)
           }
 
           const char *keys[] = { "link", "title" };
+
+          buf_check (tags[i], TAG_MAX_LEN);
+
           const char *values[] = { tag_html, tags[i] };
           char *article_link = render_template(TEMPLATE_ARTLNK_PATH, 2, keys, values);
+
+          printf ("%s\n\n", article_link);
+          buf_check (article_link, LINK_MAX_LEN);
+
           strcat(article_links, article_link);
           free(article_link);
 
@@ -490,4 +500,13 @@ trim_char (char *str, char c)
   str[len] = '\0';
 
   return;
+}
+
+void buf_check (const char *str, const int len)
+{
+  if (strlen (str) >= len)
+  {
+    printf ("error: Buffer overflow caught\n");
+    exit (1);
+  }
 }
