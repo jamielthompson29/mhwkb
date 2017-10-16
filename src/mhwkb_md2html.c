@@ -49,6 +49,7 @@
 #define TAG_MAX_LEN 80
 
 #define LINK_MAX_LEN 512
+#define TAGS_COMBINED_MAX_LEN 1024
 
 #define TEMPLATE_INDEX_PATH "../templates/index.html"
 #define TEMPLATE_ARTICLE_PATH "../templates/article.html"
@@ -107,6 +108,7 @@ main (int argc, char **argv)
     if (md_file == NULL)
     {
       perror ("failure: open file\n");
+      printf ("%s\n", entry->d_name);
       exit (1);
     }
 
@@ -191,8 +193,8 @@ main (int argc, char **argv)
           tag_ctr++;
         }
 
-        char *article_links = malloc(LINK_MAX_LEN + 1);
-        memset(article_links, 0, LINK_MAX_LEN + 1);
+        char *article_links = malloc(TAGS_COMBINED_MAX_LEN + 1);
+        memset(article_links, 0, TAGS_COMBINED_MAX_LEN + 1);
 
         for (i = 0; i < tag_ctr; i++)
         {
@@ -241,7 +243,6 @@ main (int argc, char **argv)
           const char *values[] = { tag_html, tags[i] };
           char *article_link = render_template(TEMPLATE_ARTLNK_PATH, 2, keys, values);
 
-          printf ("%s\n\n", article_link);
           buf_check (article_link, LINK_MAX_LEN);
 
           strcat(article_links, article_link);
@@ -251,6 +252,8 @@ main (int argc, char **argv)
             strcat(article_links, ", ");
           else
             strcat(article_links, "<br /><br />\n");
+
+          buf_check (article_links, TAGS_COMBINED_MAX_LEN);
         }
 
         // Render the article templates
