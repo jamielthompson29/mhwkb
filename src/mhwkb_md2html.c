@@ -275,7 +275,7 @@ main (int argc, char **argv)
          */
         for (i = 0; i < tag_ctr; i++)
         {
-          char html_tag_file[256];
+          char html_tag_file[HTML_FILENAME_MAX_LEN];
           strcpy (html_tag_file, starting_dir);
           strcat (html_tag_file, tags[i]);
           strcat (html_tag_file, ".html");
@@ -285,8 +285,8 @@ main (int argc, char **argv)
           strcat (title_tag, " (Under Construction)");
           strcat (title_tag, " - Mental Health and Wellness Knowledge Base");
 
-          char tags_tag[512+1];
-          memset(tags_tag, 0, 512 + 1);
+          char tags_tag[TAGS_COMBINED_MAX_LEN + 1];
+          memset(tags_tag, 0, TAGS_COMBINED_MAX_LEN + 1);
           int tag;
           for (tag = 0; tag < tag_ctr - 1; tag++)
           {
