@@ -42,6 +42,12 @@
 #define MAX_ARTICLES 500
 #define MAX_TAG_COUNT 500
 
+#define LINE_MAX_LEN 512
+
+#define HTML_FILENAME_MAX_LEN 512
+#define TAG_MAX_NUM 20
+#define TAG_MAX_LEN 80
+
 #define TEMPLATE_INDEX_PATH "../templates/index.html"
 #define TEMPLATE_ARTICLE_PATH "../templates/article.html"
 #define TEMPLATE_ARTLNK_PATH "../templates/article_link.html"
@@ -103,22 +109,22 @@ main (int argc, char **argv)
 
     char link_href[256];
     char link_title[256];
-    char md_line[512];
+    char md_line[LINE_MAX_LEN];
 
-    char tags[20][80];
+    char tags[TAG_MAX_NUM][TAG_MAX_LEN];
 
     int i, href_pos;
 
     char *tag_Ptr;
 
-    while (fgets (md_line, 512, md_file) != NULL)
+    while (fgets (md_line, LINE_MAX_LEN, md_file) != NULL)
     {
       link_href[0] = '\0';
       link_title[0] = '\0';
 
       if (md_line[0] == '[')
       {
-        char tag_html[256];
+        char tag_html[HTML_FILENAME_MAX_LEN];
 
         for (i = 0; md_line[i] != ']'; i++)
         {
@@ -142,13 +148,13 @@ main (int argc, char **argv)
         link_href[href_pos++] = '\0';
 
         // Get the date
-        fgets (md_line, 512, md_file);
+        fgets (md_line, LINE_MAX_LEN, md_file);
         char *date_line = malloc (128);
         memset(date_line, 0, 128);
         strcpy (date_line, md_line);
 
         /* get the tags */
-        fgets (md_line, 512, md_file);
+        fgets (md_line, LINE_MAX_LEN, md_file);
 
         /* tokenize the "tags" line */
 
