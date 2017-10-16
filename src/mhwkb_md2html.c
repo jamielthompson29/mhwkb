@@ -109,7 +109,7 @@ main (int argc, char **argv)
 
     int i, href_pos;
 
-    char *tag_Ptr = malloc (sizeof (char *));
+    char *tag_Ptr;
 
     while (fgets (md_line, 512, md_file) != NULL)
     {
@@ -143,7 +143,8 @@ main (int argc, char **argv)
 
         // Get the date
         fgets (md_line, 512, md_file);
-        char *date_line = malloc (sizeof (date_line));
+        char *date_line = malloc (128);
+        memset(date_line, 0, 128);
         strcpy (date_line, md_line);
 
         /* get the tags */
@@ -328,6 +329,7 @@ main (int argc, char **argv)
       exit (1);
     }
   }
+  free(files);
 
   // Read the directory for all articles that are not index
   // Overwrite with the contents inserted into the index template
@@ -388,6 +390,7 @@ main (int argc, char **argv)
       exit (1);
     }
   }
+  free(article_files);
 
   // Write the index file
   char index_html[256];
