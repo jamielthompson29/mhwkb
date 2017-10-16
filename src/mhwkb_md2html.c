@@ -42,12 +42,22 @@
 #define MAX_ARTICLES 500
 #define MAX_TAG_COUNT 500
 
+#define LINE_MAX_LEN 512
+
+#define HTML_FILENAME_MAX_LEN 512
+#define TAG_MAX_NUM 20
+#define TAG_MAX_LEN 80
+
+#define LINK_MAX_LEN 512
+#define TAGS_COMBINED_MAX_LEN 1024
+
 #define TEMPLATE_INDEX_PATH "../templates/index.html"
 #define TEMPLATE_ARTICLE_PATH "../templates/article.html"
 #define TEMPLATE_ARTLNK_PATH "../templates/article_link.html"
 
 void erase_char (char *str, char c);
 void trim_char (char *str, char c);
+void buf_check (const char *str, const int len);
 
 int
 main (int argc, char **argv)
@@ -98,27 +108,28 @@ main (int argc, char **argv)
     if (md_file == NULL)
     {
       perror ("failure: open file\n");
+      printf ("%s\n", entry->d_name);
       exit (1);
     }
 
-    char link_href[256];
+    char link_href[LINK_MAX_LEN];
     char link_title[256];
-    char md_line[512];
+    char md_line[LINE_MAX_LEN];
 
-    char tags[20][80];
+    char tags[TAG_MAX_NUM][TAG_MAX_LEN];
 
     int i, href_pos;
 
     char *tag_Ptr;
 
-    while (fgets (md_line, 512, md_file) != NULL)
+    while (fgets (md_line, LINE_MAX_LEN, md_file) != NULL)
     {
       link_href[0] = '\0';
       link_title[0] = '\0';
 
       if (md_line[0] == '[')
       {
-        char tag_html[256];
+        char tag_html[HTML_FILENAME_MAX_LEN];
 
         for (i = 0; md_line[i] != ']'; i++)
         {
@@ -142,13 +153,13 @@ main (int argc, char **argv)
         link_href[href_pos++] = '\0';
 
         // Get the date
-        fgets (md_line, 512, md_file);
+        fgets (md_line, LINE_MAX_LEN, md_file);
         char *date_line = malloc (128);
         memset(date_line, 0, 128);
         strcpy (date_line, md_line);
 
         /* get the tags */
-        fgets (md_line, 512, md_file);
+        fgets (md_line, LINE_MAX_LEN, md_file);
 
         /* tokenize the "tags" line */
 
@@ -182,8 +193,8 @@ main (int argc, char **argv)
           tag_ctr++;
         }
 
-        char *article_links = malloc(512 + 1);
-        memset(article_links, 0, 512 + 1);
+        char *article_links = malloc(TAGS_COMBINED_MAX_LEN + 1);
+        memset(article_links, 0, TAGS_COMBINED_MAX_LEN + 1);
 
         for (i = 0; i < tag_ctr; i++)
         {
@@ -226,8 +237,14 @@ main (int argc, char **argv)
           }
 
           const char *keys[] = { "link", "title" };
+
+          buf_check (tags[i], TAG_MAX_LEN);
+
           const char *values[] = { tag_html, tags[i] };
           char *article_link = render_template(TEMPLATE_ARTLNK_PATH, 2, keys, values);
+
+          buf_check (article_link, LINK_MAX_LEN);
+
           strcat(article_links, article_link);
           free(article_link);
 
@@ -235,6 +252,8 @@ main (int argc, char **argv)
             strcat(article_links, ", ");
           else
             strcat(article_links, "<br /><br />\n");
+
+          buf_check (article_links, TAGS_COMBINED_MAX_LEN);
         }
 
         // Render the article templates
@@ -256,7 +275,7 @@ main (int argc, char **argv)
          */
         for (i = 0; i < tag_ctr; i++)
         {
-          char html_tag_file[256];
+          char html_tag_file[HTML_FILENAME_MAX_LEN];
           strcpy (html_tag_file, starting_dir);
           strcat (html_tag_file, tags[i]);
           strcat (html_tag_file, ".html");
@@ -266,8 +285,8 @@ main (int argc, char **argv)
           strcat (title_tag, " (Under Construction)");
           strcat (title_tag, " - Mental Health and Wellness Knowledge Base");
 
-          char tags_tag[512+1];
-          memset(tags_tag, 0, 512 + 1);
+          char tags_tag[TAGS_COMBINED_MAX_LEN + 1];
+          memset(tags_tag, 0, TAGS_COMBINED_MAX_LEN + 1);
           int tag;
           for (tag = 0; tag < tag_ctr - 1; tag++)
           {
@@ -484,4 +503,13 @@ trim_char (char *str, char c)
   str[len] = '\0';
 
   return;
+}
+
+void buf_check (const char *str, const int len)
+{
+  if (strlen (str) >= len)
+  {
+    printf ("error: Buffer overflow caught\n");
+    exit (1);
+  }
 }
