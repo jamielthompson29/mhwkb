@@ -36,8 +36,8 @@
 #define EXIT_INVALID_ARGS 2
 #define EXIT_OPENDIR_FAILURE 4
 
-#define VERSION ".0.0.09"
-#define DATE "2017-10-15"
+#define VERSION ".0.0.10"
+#define DATE "2017-10-17"
 
 #define MAX_ARTICLES 500
 #define MAX_TAG_COUNT 500
@@ -49,7 +49,7 @@
 #define TAG_MAX_LEN 80
 
 #define LINK_MAX_LEN 512
-#define TAGS_COMBINED_MAX_LEN 1024
+#define TAGS_COMBINED_MAX_LEN 1280
 
 #define TEMPLATE_INDEX_PATH "../templates/index.html"
 #define TEMPLATE_ARTICLE_PATH "../templates/article.html"
@@ -510,6 +510,19 @@ void buf_check (const char *str, const int len)
   if (strlen (str) >= len)
   {
     printf ("error: Buffer overflow caught\n");
+    printf ("string length: %lu\n", strlen (str));
+
+    int pos = 0;
+    int chars_to_print = 0;
+    chars_to_print = (len >= 80) ? 80 : 10;
+
+    for (pos = 0; pos < chars_to_print; pos++)
+      printf ("%c", str[pos]);
+
+    printf ("\n");
+
     exit (1);
   }
+
+  return;
 }
