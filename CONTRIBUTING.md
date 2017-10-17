@@ -53,7 +53,7 @@ and submit a PR.
 1. Fork the repo (if you haven't already done so)
 2. Clone it to your computer
 3. When you're ready to work on an issue, be sure you're on the **master** branch. From there, [create a separate branch](https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches) (e.g. issue_32)
-4. Make your changes. If you're unsure of some details while you're making edits, you can discuss them on the ticket or in the [Gitter chat room](https://gitter.im/mhwkb/Lobby).
+4. Make your changes. If you're unsure of some details while you're making edits, you can discuss them on the ticket or in the [chat room](https://join.slack.com/t/mhwkb/shared_invite/enQtMjU3MjcwMTk4NjYzLTA0ZDc2YjAwMDJiNTU1YTBmYTViNmQ5MTdjOTk2MDA2MDMyMzNiYjU4ZWIzMTZlNmU4ZjFhNDg1MjQ5OGQyMjI).
 5. Commit your changes
 6. Push the working branch (e.g. issue_32) to your remote fork.
 7. Make the pull request (on the [upstream **master** branch](https://github.com/andy5995/mhwkb))
