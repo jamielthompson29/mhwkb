@@ -510,6 +510,18 @@ void buf_check (const char *str, const int len)
   if (strlen (str) >= len)
   {
     printf ("error: Buffer overflow caught\n");
+
+    int pos = 0;
+    int chars_to_print = 0;
+    chars_to_print = (len >= 80) ? 80 : 10;
+
+    for (pos = 0; pos < chars_to_print; pos++)
+      printf ("%c", str[pos]);
+
+    printf ("\n");
+
     exit (1);
   }
+
+  return;
 }
