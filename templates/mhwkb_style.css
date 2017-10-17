@@ -58,6 +58,14 @@ span.date {
     text-align: center;
     display: inline-block;
 }
+a.tag {
+    background-color: #ba3524;
+    color: white;
+    padding: 7px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
 a:hover.tag, a:active.tag {
     background-color: #ff0000;
 }
