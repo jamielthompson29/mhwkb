@@ -70,3 +70,14 @@ repo with mine (remote upstream). GitHub has instructions for doing this:
     * For step 3 on that page, use https://github.com/andy5995/mhwkb for the URL.
 2. [Syncing a Fork](https://help.github.com/articles/syncing-a-fork/)
     * On that page, it shows how to merge the **master** branch (steps 4 & 5 of **Syncing a Fork**).
+
+## Testing / Generating HTML files and CSS
+In order for you to test the HTML files and CSS on your local computer you can do the following:
+
+1. Clone the repo to your computer (if you have not done so already)
+2. Change into the folder for the repo 
+3. Run ```make``` command to compile the C application
+4. Create a temporary directory for generated HTML files ```mkdir tmp```
+5. Run ```./mhwkb Knowledge_Base tmp```
+6. Copy the CSS file from templates folder ```cp templates/mhwkb_style.css tmp```
+7. Open the tmp/index.html file in your browser.
