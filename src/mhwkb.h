@@ -42,23 +42,7 @@
 #define EXIT_INVALID_ARGS 2
 #define EXIT_OPENDIR_FAILURE 4
 
-#define VERSION ".0.0.11"
+#define VERSION ".0.0.12"
 #define DATE "2017-10-18"
-
-#define MAX_ARTICLES 500
-#define MAX_TAG_COUNT 500
-
-#define LINE_MAX_LEN 512
-
-#define HTML_FILENAME_MAX_LEN 512
-#define TAG_MAX_NUM 20
-#define TAG_MAX_LEN 80
-
-#define LINK_MAX_LEN 512
-#define TAGS_COMBINED_MAX_LEN 1280
-
-#define TEMPLATE_INDEX_PATH "../templates/index.html"
-#define TEMPLATE_ARTICLE_PATH "../templates/article.html"
-#define TEMPLATE_ARTLNK_PATH "../templates/article_link.html"
 
 #endif
