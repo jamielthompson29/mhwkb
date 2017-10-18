@@ -33,13 +33,6 @@
 #define GEN_FUNCTIONS_H
 
 #include "mhwkb.h"
-#include <sys/stat.h>
-
-/**
- * Check if filename exists
- * Usage: if(exists(filename) == 0);
- */
-int exists (const char *filename);
 
 void del_char_shift_left (char *str, char c);
 void trim_char (char *str, char c);
