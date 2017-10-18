@@ -31,12 +31,6 @@
 
 #include "gen_functions.h"
 
-int exists (const char *filename)
-{
-  struct stat st;
-  return (lstat (filename, &st));
-}
-
 /**
  * Erases characters from the beginning of a string
  * (i.e. shifts the remaining string to the left
