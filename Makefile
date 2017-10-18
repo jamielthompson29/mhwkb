@@ -1,7 +1,7 @@
 TARGET = mhwkb
 LIBS = -lm
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -g
 
 .PHONY: default all clean
 
@@ -17,7 +17,7 @@ HEADERS = $(wildcard src/*.h)
 .PRECIOUS: $(TARGET) $(OBJECTS)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(OBJECTS) -std=gnu99 -Wall $(LIBS) -o $@
+	$(CC) $(OBJECTS) -Wall $(LIBS) -o $@
 
 clean:
 	-rm -f *.html
