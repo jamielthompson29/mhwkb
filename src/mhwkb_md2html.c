@@ -55,7 +55,7 @@
 #define TEMPLATE_ARTICLE_PATH "../templates/article.html"
 #define TEMPLATE_ARTLNK_PATH "../templates/article_link.html"
 
-void erase_char (char *str, char c);
+void del_char_shift_left (char *str, char c);
 void trim_char (char *str, char c);
 void buf_check (const char *str, const int len);
 
@@ -200,19 +200,19 @@ main (int argc, char **argv)
         {
           while (tags[i][0] != '[' && i == 0)
           {
-            erase_char (tags[i], tags[i][0]);
+            del_char_shift_left (tags[i], tags[i][0]);
           }
 
-          erase_char (tags[i], '[');
+          del_char_shift_left (tags[i], '[');
 
           /* if there's any white space between the [ and the " */
 
           while (tags[i][0] != '"')
           {
-            erase_char (tags[i], tags[i][0]);
+            del_char_shift_left (tags[i], tags[i][0]);
           }
 
-          erase_char (tags[i], '"');
+          del_char_shift_left (tags[i], '"');
 
           /* check to see if we're on the last tag */
 
@@ -457,23 +457,25 @@ main (int argc, char **argv)
  * (i.e. shifts the remaining string to the left
  */
 void
-erase_char (char *str, char c)
+del_char_shift_left (char *str, char c)
 {
-  int inc = 0;
+  int c_count = 0;
 
-  while (str[inc] == c)
-    inc++;
+  /* count how many instances of 'c' */
+  while (str[c_count] == c)
+    c_count++;
 
-  if (!inc)
+  /* if no instances of 'c' were found... */
+  if (!c_count)
     return;
 
-  int n = strlen (str);
-  int i;
+  int len = strlen (str);
+  int pos;
 
-  for (i = 0; i < n - inc; i++)
-    str[i] = str[i + inc];
+  for (pos = 0; pos < len - c_count; pos++)
+    str[pos] = str[pos + c_count];
 
-  str[n - inc] = '\0';
+  str[len - c_count] = '\0';
 
   return;
 }
