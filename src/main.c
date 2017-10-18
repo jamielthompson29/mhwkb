@@ -29,9 +29,7 @@
  *
  */
 
-#include "mhwkb.h"
-#include "template_functions.h"
-#include "gen_functions.h"
+#include "main.h"
 
 int
 main (int argc, char **argv)
