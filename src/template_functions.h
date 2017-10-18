@@ -27,16 +27,8 @@
 #ifndef TEMPLATE_FUNCTIONS_H
 #define TEMPLATE_FUNCTIONS_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
-
-/**
- * Check if filename exists
- * Usage: if(exists(filename) == 0);
- */
-int exists (const char *filename);
+#include "mhwkb.h"
+#include "gen_functions.h"
 
 /**
  * Read the contents of a file

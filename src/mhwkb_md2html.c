@@ -3,9 +3,13 @@
  * Converts md files for the Mental Health and Wellness Knowledge Base
  * https://github.com/andy5995/mhwkb
  *
- * Usage: mhwkb_md2html <dir_with_md_files>
- *
  * Copyright 2017 Andy Alt <andy400-dev@yahoo.com>
+ * With contributions from
+ *
+ * Daniel Kelly <myself@danielkelly.me>
+ *
+ * and others mentioned in
+ * https://github.com/andy5995/mhwkb/blob/master/CONTRIBUTING.md
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,39 +29,9 @@
  *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <dirent.h>
-#include <errno.h>
-#include <unistd.h>
+#include "mhwkb.h"
 #include "template_functions.h"
-
-#define EXIT_INVALID_ARGS 2
-#define EXIT_OPENDIR_FAILURE 4
-
-#define VERSION ".0.0.11"
-#define DATE "2017-10-18"
-
-#define MAX_ARTICLES 500
-#define MAX_TAG_COUNT 500
-
-#define LINE_MAX_LEN 512
-
-#define HTML_FILENAME_MAX_LEN 512
-#define TAG_MAX_NUM 20
-#define TAG_MAX_LEN 80
-
-#define LINK_MAX_LEN 512
-#define TAGS_COMBINED_MAX_LEN 1280
-
-#define TEMPLATE_INDEX_PATH "../templates/index.html"
-#define TEMPLATE_ARTICLE_PATH "../templates/article.html"
-#define TEMPLATE_ARTLNK_PATH "../templates/article_link.html"
-
-void del_char_shift_left (char *str, char c);
-void trim_char (char *str, char c);
-void buf_check (const char *str, const int len);
+#include "gen_functions.h"
 
 int
 main (int argc, char **argv)
@@ -450,71 +424,4 @@ main (int argc, char **argv)
   }
 
   return 0;
-}
-
-/**
- * Erases characters from the beginning of a string
- * (i.e. shifts the remaining string to the left
- */
-void
-del_char_shift_left (char *str, char c)
-{
-  int c_count = 0;
-
-  /* count how many instances of 'c' */
-  while (str[c_count] == c)
-    c_count++;
-
-  /* if no instances of 'c' were found... */
-  if (!c_count)
-    return;
-
-  int len = strlen (str);
-  int pos;
-
-  for (pos = 0; pos < len - c_count; pos++)
-    str[pos] = str[pos + c_count];
-
-  str[len - c_count] = '\0';
-
-  return;
-}
-
-/**
- * Trim a trailing character if present
- */
-void
-trim_char (char *str, char c)
-{
-  int len;
-  len = strlen(str) - 1;
-
-  if (str[len] != c)
-    return;
-
-  str[len] = '\0';
-
-  return;
-}
-
-void buf_check (const char *str, const int len)
-{
-  if (strlen (str) >= len)
-  {
-    printf ("error: Buffer overflow caught\n");
-    printf ("string length: %lu\n", strlen (str));
-
-    int pos = 0;
-    int chars_to_print = 0;
-    chars_to_print = (len >= 80) ? 80 : 10;
-
-    for (pos = 0; pos < chars_to_print; pos++)
-      printf ("%c", str[pos]);
-
-    printf ("\n");
-
-    exit (1);
-  }
-
-  return;
 }

@@ -26,12 +26,6 @@
 
 #include "template_functions.h"
 
-int exists (const char *filename)
-{
-  struct stat st;
-  return (lstat (filename, &st));
-}
-
 char* read_file_contents (const char *filename)
 {
   if(exists (filename) != 0)
