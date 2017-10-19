@@ -1,8 +1,8 @@
 #!/bin/sh
 
 cd ../..
-git clone https://github.com/mhwkb/mhwkb.github.io
-cd mhwkb.github.io
+git clone https://github.com/mhwkb/mhwkb.github.io tags_mhwkb_tmp
+cd tags_mhwkb_tmp
 
 echo -e "List of Existing Tags\n" >> tags.txt
 echo -e "If you need suggestions for tags, this is a good list for reference.\n" >> tags.txt
