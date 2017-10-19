@@ -17,6 +17,7 @@ with the work you want to do.**
 
 ## Tags
 * tags should be specific
+* Use 10 tags or less, each tag should be less than 40 characters
 * It doesn't matter if tags have spaces or underscores
 * links that discuss many different types of mental health issues should be
 tagged using keywords that the article focuses on, not with each disorder
