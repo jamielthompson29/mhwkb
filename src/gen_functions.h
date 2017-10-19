@@ -37,5 +37,6 @@
 void del_char_shift_left (char *str, char c);
 void trim_char (char *str, char c);
 void buf_check (const char *str, const int len);
+int parse_tags_line (char *line, char tags[][TAG_MAX_LEN]);
 
 #endif
