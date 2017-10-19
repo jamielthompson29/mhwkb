@@ -373,7 +373,7 @@ main (int argc, char **argv)
 
   // Write the index file
   char index_html[256];
-  sprintf (index_html, "%s/.index.html", starting_dir);
+  sprintf (index_html, "%s/index.html", starting_dir);
 
   char title_main[256];
   title_main[0] = '\0';
