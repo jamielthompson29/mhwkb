@@ -191,8 +191,8 @@ main (int argc, char **argv)
           if (i < tag_ctr - 1)
           {
             trim_char (tags[i], '"');
-            strcpy (tag_html, tags[i]);
-            strcat (tag_html, ".html");
+
+            sprintf (tag_html, "%s.html", tags[i]);
           }
           else
           {
@@ -204,8 +204,7 @@ main (int argc, char **argv)
             }
             /* if were' on the last tag, cut off the "]<br />" */
             tags[i][pos] = '\0';
-            strcpy (tag_html, tags[i]);
-            strcat (tag_html, ".html");
+            sprintf (tag_html, "%s.html", tags[i]);
           }
 
           const char *keys[] = { "link", "title" };
@@ -248,11 +247,10 @@ main (int argc, char **argv)
         for (i = 0; i < tag_ctr; i++)
         {
           char html_tag_file[HTML_FILENAME_MAX_LEN];
-          strcpy (html_tag_file, starting_dir);
-          strcat (html_tag_file, tags[i]);
-          strcat (html_tag_file, ".html");
+          sprintf (html_tag_file, "%s%s.html", starting_dir, tags[i]);
 
           char title_tag[256];
+
           strcpy (title_tag, tags[i]);
           strcat (title_tag, " (Under Construction)");
           strcat (title_tag, " - Mental Health and Wellness Knowledge Base");
@@ -375,9 +373,7 @@ main (int argc, char **argv)
 
   // Write the index file
   char index_html[256];
-  strcpy (index_html, starting_dir);
-  strcat (index_html, "/");
-  strcat (index_html, "index.html");
+  sprintf (index_html, "%s/.index.html", starting_dir);
 
   char title_main[256];
   title_main[0] = '\0';
