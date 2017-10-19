@@ -45,4 +45,7 @@
 #define VERSION ".0.0.12"
 #define DATE "2017-10-18"
 
+/* max string length of a tag */
+#define TAG_MAX_LEN 52
+
 #endif

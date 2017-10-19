@@ -45,9 +45,7 @@
 #define HTML_FILENAME_MAX_LEN 512
 
 /* max tags per article */
-#define TAG_MAX_NUM 20
-/* max string length of a tag */
-#define TAG_MAX_LEN 80
+#define TAG_MAX_NUM 10
 
 #define LINK_MAX_LEN 512
 
@@ -57,5 +55,14 @@
 #define TEMPLATE_INDEX_PATH "../templates/index.html"
 #define TEMPLATE_ARTICLE_PATH "../templates/article.html"
 #define TEMPLATE_ARTLNK_PATH "../templates/article_link.html"
+
+struct pagination_nav
+{
+  char page[HTML_FILENAME_MAX_LEN];
+  int count;
+};
+
+#define PASSES 1
+
 
 #endif

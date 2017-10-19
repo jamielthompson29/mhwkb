@@ -92,215 +92,192 @@ main (int argc, char **argv)
 
     int i, href_pos;
 
-    char *tag_Ptr;
-
-    while (fgets (md_line, LINE_MAX_LEN, md_file) != NULL)
+    /* Pagination:
+     * First pass through the while loop only count the number of links,
+     * and get the number of links that will appear in each <tag.html> file
+     *
+     * Not yet implemented
+     */
+    int pass;
+    for (pass = 1; pass <= PASSES; pass++)
     {
-      link_href[0] = '\0';
-      link_title[0] = '\0';
-
-      if (md_line[0] == '[')
+      while (fgets (md_line, LINE_MAX_LEN, md_file) != NULL)
       {
-        char tag_html[HTML_FILENAME_MAX_LEN];
+        link_href[0] = '\0';
+        link_title[0] = '\0';
 
-        for (i = 0; md_line[i] != ']'; i++)
+        /* check to see if there's a link on that line (GitHub markdown) */
+        if (md_line[0] == '[')
         {
-          if (md_line[i] != '[')
+          char tag_html[HTML_FILENAME_MAX_LEN];
+
+          for (i = 0; md_line[i] != ']'; i++)
           {
-            link_title[i - 1] = md_line[i];
-          }
-        }
-
-        link_title[i - 1] = '\0';
-
-        i++;
-
-        href_pos = 0;
-
-        for (; md_line[i] != ')'; i++)
-        {
-          if (md_line[i] != '(')
-            link_href[href_pos++] = md_line[i];
-        }
-        link_href[href_pos++] = '\0';
-
-        // Get the date
-        fgets (md_line, LINE_MAX_LEN, md_file);
-        char *date_line = malloc (128);
-        memset(date_line, 0, 128);
-        strcpy (date_line, md_line);
-
-        /* get the tags */
-        fgets (md_line, LINE_MAX_LEN, md_file);
-
-        /* tokenize the "tags" line */
-
-        tag_Ptr = strtok (md_line, ",");
-
-        int tag_ctr = 0;
-
-        /* pointer to each tag. Used to check for a space in a tag and
-         * replace to an underscore */
-        char *tp;
-
-        while (tag_Ptr != NULL)
-        {
-
-          tp = &tag_Ptr[0];
-
-          while (*tp != '\0')
-          {
-            if (*tp != ' ')
-            {}
-            else
-              *tp = '_';
-
-            tp++;
-          }
-
-          strcpy (tags[tag_ctr], tag_Ptr);
-
-          tag_Ptr = strtok (NULL, ",");
-
-          tag_ctr++;
-        }
-
-        char *article_links = malloc(TAGS_COMBINED_MAX_LEN + 1);
-        memset(article_links, 0, TAGS_COMBINED_MAX_LEN + 1);
-
-        for (i = 0; i < tag_ctr; i++)
-        {
-          while (tags[i][0] != '[' && i == 0)
-          {
-            del_char_shift_left (tags[i], tags[i][0]);
-          }
-
-          del_char_shift_left (tags[i], '[');
-
-          /* if there's any white space between the [ and the " */
-
-          while (tags[i][0] != '"')
-          {
-            del_char_shift_left (tags[i], tags[i][0]);
-          }
-
-          del_char_shift_left (tags[i], '"');
-
-          /* check to see if we're on the last tag */
-
-          if (i < tag_ctr - 1)
-          {
-            trim_char (tags[i], '"');
-
-            sprintf (tag_html, "%s.html", tags[i]);
-          }
-          else
-          {
-            int pos = 0;
-
-            while (tags[i][pos] != '"')
+            if (md_line[i] != '[')
             {
-              pos++;
+              link_title[i - 1] = md_line[i];
             }
-            /* if were' on the last tag, cut off the "]<br />" */
-            tags[i][pos] = '\0';
-            sprintf (tag_html, "%s.html", tags[i]);
           }
 
-          const char *keys[] = { "link", "title" };
+          link_title[i - 1] = '\0';
 
-          buf_check (tags[i], TAG_MAX_LEN);
+          i++;
 
-          const char *values[] = { tag_html, tags[i] };
-          char *article_link = render_template_file(TEMPLATE_ARTLNK_PATH, 2, keys, values);
+          href_pos = 0;
 
-          buf_check (article_link, LINK_MAX_LEN);
-
-          strcat(article_links, article_link);
-          free(article_link);
-
-          if (i < tag_ctr - 1)
-            strcat(article_links, ", ");
-          else
-            strcat(article_links, "<br /><br />\n");
-
-          buf_check (article_links, TAGS_COMBINED_MAX_LEN);
-        }
-
-        // Render the article templates
-        const char *keys[] = { "link", "title", "date", "article_links" };
-        const char *values[] = { link_href, link_title, date_line, article_links };
-        char *article_template = render_template_file(TEMPLATE_ARTICLE_PATH, 4, keys, values);
-        free(article_links);
-
-        // Error if we are about to over flow MAX_ARTICLES
-        if(article_length >= MAX_ARTICLES) {
-          perror ("failure: over MAX_ARTICLES");
-          exit(1);
-        }
-
-        articles[article_length++] = article_template;
-
-        /* Now that we know all the tags for one entry, make the <tag>.html
-         * files
-         */
-        for (i = 0; i < tag_ctr; i++)
-        {
-          char html_tag_file[HTML_FILENAME_MAX_LEN];
-          sprintf (html_tag_file, "%s%s.html", starting_dir, tags[i]);
-
-          char title_tag[256];
-
-          strcpy (title_tag, tags[i]);
-          strcat (title_tag, " (Under Construction)");
-          strcat (title_tag, " - Mental Health and Wellness Knowledge Base");
-
-          char tags_tag[TAGS_COMBINED_MAX_LEN + 1];
-          memset(tags_tag, 0, TAGS_COMBINED_MAX_LEN + 1);
-          int tag;
-          for (tag = 0; tag < tag_ctr; tag++)
+          for (; md_line[i] != ')'; i++)
           {
-            strcpy (tag_html, tags[tag]);
-            strcat (tag_html, ".html");
+            if (md_line[i] != '(')
+              link_href[href_pos++] = md_line[i];
+          }
+          link_href[href_pos++] = '\0';
 
-            const char *link_keys[] = { "link", "title" };
-            const char *link_values[] = { tag_html, tags[tag] };
-            char *link_template = render_template_file(TEMPLATE_ARTLNK_PATH, 2, link_keys, link_values);
+          // Get the date
+          fgets (md_line, LINE_MAX_LEN, md_file);
+          char *date_line = malloc (128);
+          memset(date_line, 0, 128);
+          strcpy (date_line, md_line);
 
-            strcat (tags_tag, link_template);
+          /* get the tags */
+          fgets (md_line, LINE_MAX_LEN, md_file);
 
-            free(link_template);
+          int tag_ctr = parse_tags_line (md_line, tags);
+
+          char *article_links = malloc(TAGS_COMBINED_MAX_LEN + 1);
+          memset(article_links, 0, TAGS_COMBINED_MAX_LEN + 1);
+
+          for (i = 0; i < tag_ctr; i++)
+          {
+            while (tags[i][0] != '[' && i == 0)
+            {
+              del_char_shift_left (tags[i], tags[i][0]);
+            }
+
+            del_char_shift_left (tags[i], '[');
+
+            /* if there's any white space between the [ and the " */
+
+            while (tags[i][0] != '"')
+            {
+              del_char_shift_left (tags[i], tags[i][0]);
+            }
+
+            del_char_shift_left (tags[i], '"');
+
+            /* check to see if we're on the last tag */
+
+            if (i < tag_ctr - 1)
+            {
+              trim_char (tags[i], '"');
+
+              sprintf (tag_html, "%s.html", tags[i]);
+            }
+            else
+            {
+              int pos = 0;
+
+              while (tags[i][pos] != '"')
+              {
+                pos++;
+              }
+              /* if we're on the last tag, cut off the "]<br />" */
+              tags[i][pos] = '\0';
+              sprintf (tag_html, "%s.html", tags[i]);
+            }
+
+            const char *keys[] = { "link", "title" };
+
+            buf_check (tags[i], TAG_MAX_LEN);
+
+            const char *values[] = { tag_html, tags[i] };
+            char *article_link = render_template_file(TEMPLATE_ARTLNK_PATH, 2, keys, values);
+
+            buf_check (article_link, LINK_MAX_LEN);
+
+            strcat(article_links, article_link);
+            free(article_link);
+
+            if (i < tag_ctr - 1)
+              strcat(article_links, ", ");
+            else
+              strcat(article_links, "<br /><br />\n");
+
+            buf_check (article_links, TAGS_COMBINED_MAX_LEN);
           }
 
           // Render the article templates
-          const char *article_keys[] = { "link", "title", "date", "article_links" };
-          const char *article_values[] = { link_href, link_title, date_line, tags_tag };
-          char *article_template = render_template_file(TEMPLATE_ARTICLE_PATH, 4, article_keys, article_values);
+          const char *keys[] = { "link", "title", "date", "article_links" };
+          const char *values[] = { link_href, link_title, date_line, article_links };
+          char *article_template = render_template_file(TEMPLATE_ARTICLE_PATH, 4, keys, values);
+          free(article_links);
 
-          // Save the file
-          FILE *fp = fopen (html_tag_file, "a");
-          if (fp == NULL)
-          {
-            perror ("failure: open file\n");
-            printf ("%s\n", html_tag_file);
-            exit (1);
+          // Error if we are about to over flow MAX_ARTICLES
+          if(article_length >= MAX_ARTICLES) {
+            perror ("failure: over MAX_ARTICLES");
+            exit(1);
           }
 
-          fprintf (fp, "%s", article_template);
-          free(article_template);
+          articles[article_length++] = article_template;
 
-          if (fclose (fp) != 0)
+          /* Now that we know all the tags for one entry, make the <tag>.html
+           * files
+           */
+          for (i = 0; i < tag_ctr; i++)
           {
-            perror ("failure: close file\n");
-            exit (1);
+            char html_tag_file[HTML_FILENAME_MAX_LEN];
+            sprintf (html_tag_file, "%s%s.html", starting_dir, tags[i]);
+
+            char title_tag[256];
+
+            strcpy (title_tag, tags[i]);
+            strcat (title_tag, " (Under Construction)");
+            strcat (title_tag, " - Mental Health and Wellness Knowledge Base");
+
+            char tags_tag[TAGS_COMBINED_MAX_LEN + 1];
+            memset(tags_tag, 0, TAGS_COMBINED_MAX_LEN + 1);
+            int tag;
+            for (tag = 0; tag < tag_ctr; tag++)
+            {
+              strcpy (tag_html, tags[tag]);
+              strcat (tag_html, ".html");
+
+              const char *link_keys[] = { "link", "title" };
+              const char *link_values[] = { tag_html, tags[tag] };
+              char *link_template = render_template_file(TEMPLATE_ARTLNK_PATH, 2, link_keys, link_values);
+
+              strcat (tags_tag, link_template);
+
+              free(link_template);
+            }
+
+            // Render the article templates
+            const char *article_keys[] = { "link", "title", "date", "article_links" };
+            const char *article_values[] = { link_href, link_title, date_line, tags_tag };
+            char *article_template = render_template_file(TEMPLATE_ARTICLE_PATH, 4, article_keys, article_values);
+
+            // Save the file
+            FILE *fp = fopen (html_tag_file, "a");
+            if (fp == NULL)
+            {
+              perror ("failure: open file\n");
+              printf ("%s\n", html_tag_file);
+              exit (1);
+            }
+
+            fprintf (fp, "%s", article_template);
+            free(article_template);
+
+            if (fclose (fp) != 0)
+            {
+              perror ("failure: close file\n");
+              exit (1);
+            }
           }
+
+          free (date_line);
         }
-
-        free (date_line);
       }
     }
-
-    free (tag_Ptr);
 
     if (fclose (md_file) != 0)
     {

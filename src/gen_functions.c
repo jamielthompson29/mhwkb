@@ -97,3 +97,39 @@ void buf_check (const char *str, const int len)
 
   return;
 }
+
+/* tokenize the "tags" line */
+int parse_tags_line (char *line, char tags[][TAG_MAX_LEN])
+{
+  char *tag_Ptr;
+  tag_Ptr = strtok (line, ",");
+
+  /* pointer to each tag. Used to check for a space in a tag and
+   * replace to an underscore */
+  char *tp;
+  int local_tag_ctr = 0;
+
+  while (tag_Ptr != NULL)
+  {
+
+    tp = &tag_Ptr[0];
+
+    while (*tp != '\0')
+    {
+      if (*tp != ' ')
+      {}
+      else
+        *tp = '_';
+
+      tp++;
+    }
+
+    strcpy (tags[local_tag_ctr], tag_Ptr);
+
+    tag_Ptr = strtok (NULL, ",");
+
+    local_tag_ctr++;
+  }
+
+  return local_tag_ctr;
+}
