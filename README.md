@@ -9,7 +9,7 @@ The KB is at https://mhwkb.github.io/
 ## Project and site updates
 For now, we're using generic GitHub RSS feeds<br />
   [![RSS](images/rss_23x23.jpeg)](https://github.com/mhwkb/mhwkb.github.io/commits/master.atom)
-  [Web site updates]((https://github.com/mhwkb/mhwkb.github.io/commits/master.atom)<br />
+  [Web site updates](https://github.com/mhwkb/mhwkb.github.io/commits/master.atom)<br />
   [![RSS](images/rss_23x23.jpeg)](https://github.com/andy5995/mhwkb/commits/master.atom)
   [GitHub Project updates](https://github.com/andy5995/mhwkb/commits/master.atom)
 
