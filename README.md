@@ -4,19 +4,18 @@
 # mhwKB
 Mental Health and Wellness Knowledge Base
 
-## News
+The KB is at https://mhwkb.github.io/
 
-**2017-10-11**
-The web site is live: https://mhwkb.github.io/
-It needs enhancements to the design. I'll be adding more tickets soon. Anyone is welcome to join the [chat room](https://join.slack.com/t/mhwkb/shared_invite/enQtMjU3MjcwMTk4NjYzLTA0ZDc2YjAwMDJiNTU1YTBmYTViNmQ5MTdjOTk2MDA2MDMyMzNiYjU4ZWIzMTZlNmU4ZjFhNDg1MjQ5OGQyMjI).
+## Project and site updates
+For now, we're using generic GitHub RSS feeds
+ * [Web site changes](https://github.com/mhwkb/mhwkb.github.io/commits/master.atom)
+ * [GitHub Project updates](https://github.com/andy5995/mhwkb/commits/master.atom)
 
-People are also encouraged to [add their favorite mental health links](https://github.com/andy5995/mhwkb/issues/5).
-
-## This project is in the planning stages ##
+Do we need a mailing list for updates?
 
 ## Goals
 * [increase awareness](http://www.ohchr.org/EN/NewsEvents/Pages/DisplayNews.aspx?NewsID=21689&LangID=E)
-* [Web site](https://github.com/andy5995/mhwkb/issues/6#issuecomment-334978501) should be low-maintenance.
+* [Web site should be low-maintenance
   * no logins necessary, all changes to site will be submitted through the
   GitHub project page
   * links to external web sites added should have relatively fast load times,
@@ -29,13 +28,6 @@ People are also encouraged to [add their favorite mental health links](https://g
   * more freedom to choose how they would like to pursue their recovery goals
   * the potential for a more open discussion related to how the mental health
   care system could be improved
-
-## TODO
-* Collaborate / Determine the amount of interest in this project by other
-members of the open source community
-* ~~Create [web site](https://github.com/andy5995/mhwkb/issues/6#issuecomment-334978501)~~
-* ~~Program will be needed to parse data files that contains links~~
-* ~~Allow users to easily submit links~~
 
 ## Disclaimer
 The content on the web sites linked to from the knowledge base has been
@@ -70,6 +62,9 @@ psychology.
 * [Contributing](CONTRIBUTING.md)
 * [List of Contributors](CONTRIBUTORS.md) (Please add your name if you
 have contributed)
+
+## FAQ
+* [FAQ](FAQ.md)
 
 ## Contact
 * Andy Alt (andy400-dev@yahoo.com)
