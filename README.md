@@ -17,7 +17,7 @@ Do we need a mailing list for updates?
 
 ## Goals
 * [increase awareness](http://www.ohchr.org/EN/NewsEvents/Pages/DisplayNews.aspx?NewsID=21689&LangID=E)
-* [Web site should be low-maintenance
+* Web site should be low-maintenance
   * no logins necessary, all changes to site will be submitted through the
   GitHub project page
   * links to external web sites added should have relatively fast load times,
