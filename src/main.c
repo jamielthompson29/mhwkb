@@ -197,11 +197,7 @@ main (int argc, char **argv)
             strcat(article_links, article_link);
             free(article_link);
 
-            if (i < tag_ctr - 1)
-              strcat(article_links, ", ");
-            else
-              strcat(article_links, "<br /><br />\n");
-
+            strcat(article_links, "\n");
             buf_check (article_links, TAGS_COMBINED_MAX_LEN);
           }
 
