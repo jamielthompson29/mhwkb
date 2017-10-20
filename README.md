@@ -39,7 +39,7 @@ Among other things, the information on this site and external web sites and
 blogs consists of opinions or personal stories - and as such, treated like any
 other opinions or stories you may hear or read about on any subject.
 
-I, nor the contributors of the Mental Health and Wellness Knowledge Base,
+I (Andy Alt), nor the contributors of the _Mental Health and Wellness Knowledge Base_,
 necessarily endorse, believe, or agree with, the views presented by the various
 sites to which the Knowledge Base links.
 
@@ -50,7 +50,7 @@ and ADHD drugs) without a doctor's supervision. If you have firmly decided to
 discontinue medication without a doctor's supervision, you may find some guides
 to medication on Amazon or other book-selling sites.
 
-## About Me
+## About Andy Alt (Project Owner)
 I first received treatment for mental health issues (major depression, anxiety,
 PTSD) in 1991 (age 18). As a patient, I have seen numerous psychiatrists and
 psychotherapists, and have been prescribed (and used) many types of psychiatric
