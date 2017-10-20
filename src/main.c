@@ -160,77 +160,7 @@ main (int argc, char **argv)
 
           articles[article_length++] = article_template;
 
-          /* Now that we know all the tags for one entry, make the <tag>.html
-           * files
-           */
-          for (i = 0; i < tag_ctr; i++)
-          {
-            char tag_html[HTML_FILENAME_MAX_LEN + 1];
-            char html_tag_file[HTML_FILENAME_MAX_LEN + 1];
-            sprintf (html_tag_file, "%s%s.html", starting_dir, tags[i]);
-
-            char title_tag[256];
-
-            /* FIXME: this code does nothing
-             */
-            strcpy (title_tag, tags[i]);
-            strcat (title_tag, " (Under Construction)");
-            strcat (title_tag, " - Mental Health and Wellness Knowledge Base");
-            /*
-             */
-
-            char tags_tag[TAGS_COMBINED_MAX_LEN + 1];
-            memset(tags_tag, 0, TAGS_COMBINED_MAX_LEN + 1);
-            int tag;
-            for (tag = 0; tag < tag_ctr; tag++)
-            {
-              strcpy (tag_html, tags[tag]);
-              strcat (tag_html, ".html");
-
-              const char *link_keys[] = { "link", "title" };
-              const char *link_values[] = { tag_html, tags[tag] };
-              char *link_template = render_template_file(TEMPLATE_ARTLNK_PATH, 2, link_keys, link_values);
-
-#if VERBOSE > 1
-  printf ("Line:%d\nlink_template:%s\n\n", __LINE__, link_template);
-#endif
-
-              strcat (tags_tag, link_template);
-              /* this should fix issue #92 */
-              strcat (tags_tag, "\n");
-              /*
-               */
-
-              free(link_template);
-            }
-
-            // Render the article templates
-            const char *article_keys[] = { "link", "title", "date", "article_links" };
-            const char *article_values[] = { link_href, link_title, date_line, tags_tag };
-            char *article_template = render_template_file(TEMPLATE_ARTICLE_PATH, 4, article_keys, article_values);
-
-#if VERBOSE > 1
-  printf ("Line:%d\nlink_template:%s\n\n", __LINE__, article_template);
-#endif
-
-            // Save the file
-            FILE *fp = fopen (html_tag_file, "a");
-            if (fp == NULL)
-            {
-              perror ("failure: open file\n");
-              printf ("%s\n", html_tag_file);
-              exit (1);
-            }
-
-            fprintf (fp, "%s", article_template);
-            free(article_template);
-
-            if (fclose (fp) != 0)
-            {
-              perror ("failure: close file\n");
-              exit (1);
-            }
-          }
+          create_tag_html_files (tag_ctr, starting_dir, tags, link_href, link_title, date_line);
 
           free (date_line);
         }
