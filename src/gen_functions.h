@@ -39,4 +39,7 @@ void trim_char (char *str, char c);
 void buf_check (const char *str, const int len);
 int parse_tags_line (char *line, char tags[][TAG_MAX_LEN]);
 
+/* strip any code from the tags */
+char* make_tags_real (const int tag_ctr, char tags[][TAG_MAX_LEN], char *article_links);
+
 #endif

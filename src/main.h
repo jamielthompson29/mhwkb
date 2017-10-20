@@ -36,26 +36,8 @@
 #include "gen_functions.h"
 #include "template_functions.h"
 
-#define MAX_ARTICLES 500
-#define MAX_TAG_COUNT 500
 
-/* line length when reading the md file */
-#define LINE_MAX_LEN 512
-
-#define HTML_FILENAME_MAX_LEN 512
-
-/* max tags per article */
-#define TAG_MAX_NUM 10
-
-#define LINK_MAX_LEN 512
-
-/* after the tags has been concatenated and the html code is applied */
-#define TAGS_COMBINED_MAX_LEN 1280
-
-#define TEMPLATE_INDEX_PATH "../templates/index.html"
-#define TEMPLATE_ARTICLE_PATH "../templates/article.html"
-#define TEMPLATE_ARTLNK_PATH "../templates/article_link.html"
-
+/* pagination not yet implemented */
 struct pagination_nav
 {
   char page[HTML_FILENAME_MAX_LEN];

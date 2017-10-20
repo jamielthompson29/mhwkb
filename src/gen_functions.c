@@ -30,6 +30,7 @@
  */
 
 #include "gen_functions.h"
+#include "template_functions.h"
 
 /**
  * Erases characters from the beginning of a string
@@ -132,4 +133,67 @@ int parse_tags_line (char *line, char tags[][TAG_MAX_LEN])
   }
 
   return local_tag_ctr;
+}
+char* make_tags_real (const int tag_ctr, char tags[][TAG_MAX_LEN], char *article_links)
+{
+  int tag;
+
+  for (tag = 0; tag < tag_ctr; tag++)
+  {
+    char tag_html[HTML_FILENAME_MAX_LEN + 1];
+
+    while (tags[tag][0] != '[' && tag == 0)
+    {
+      del_char_shift_left (tags[tag], tags[tag][0]);
+    }
+
+    del_char_shift_left (tags[tag], '[');
+
+    /* if there's any white space between the [ and the " */
+
+    while (tags[tag][0] != '"')
+    {
+      del_char_shift_left (tags[tag], tags[tag][0]);
+    }
+
+    del_char_shift_left (tags[tag], '"');
+
+    /* check to see if we're on the last tag */
+    if (tag < tag_ctr - 1)
+    {
+      trim_char (tags[tag], '"');
+      sprintf (tag_html, "%s.html", tags[tag]);
+    }
+    else
+    {
+      int pos = 0;
+
+      while (tags[tag][pos] != '"')
+      {
+        pos++;
+      }
+
+      /* if we're on the last tag, cut off the "]<br />"
+       */
+      tags[tag][pos] = '\0';
+      sprintf (tag_html, "%s.html", tags[tag]);
+    }
+
+    const char *keys[] = { "link", "title" };
+
+    buf_check (tags[tag], TAG_MAX_LEN);
+
+    const char *values[] = { tag_html, tags[tag] };
+    char *article_link = render_template_file(TEMPLATE_ARTLNK_PATH, 2, keys, values);
+
+    buf_check (article_link, LINK_MAX_LEN);
+
+    strcat(article_links, article_link);
+    free(article_link);
+
+    strcat(article_links, "\n");
+    buf_check (article_links, TAGS_COMBINED_MAX_LEN);
+  }
+
+  return article_links;
 }
