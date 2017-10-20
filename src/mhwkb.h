@@ -42,8 +42,11 @@
 #define EXIT_INVALID_ARGS 2
 #define EXIT_OPENDIR_FAILURE 4
 
-#define VERSION ".0.0.13"
+#define VERSION ".0.0.14"
 #define DATE "2017-10-20"
+
+#define DEBUG  0
+#define VERBOSE 0
 
 #define TEMPLATE_INDEX_PATH "../templates/index.html"
 #define TEMPLATE_ARTICLE_PATH "../templates/article.html"

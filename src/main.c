@@ -171,9 +171,13 @@ main (int argc, char **argv)
 
             char title_tag[256];
 
+            /* FIXME: this code does nothing
+             */
             strcpy (title_tag, tags[i]);
             strcat (title_tag, " (Under Construction)");
             strcat (title_tag, " - Mental Health and Wellness Knowledge Base");
+            /*
+             */
 
             char tags_tag[TAGS_COMBINED_MAX_LEN + 1];
             memset(tags_tag, 0, TAGS_COMBINED_MAX_LEN + 1);
@@ -187,7 +191,15 @@ main (int argc, char **argv)
               const char *link_values[] = { tag_html, tags[tag] };
               char *link_template = render_template_file(TEMPLATE_ARTLNK_PATH, 2, link_keys, link_values);
 
+#if VERBOSE > 1
+  printf ("Line:%d\nlink_template:%s\n\n", __LINE__, link_template);
+#endif
+
               strcat (tags_tag, link_template);
+              /* this should fix issue #92 */
+              strcat (tags_tag, "\n");
+              /*
+               */
 
               free(link_template);
             }
@@ -196,6 +208,10 @@ main (int argc, char **argv)
             const char *article_keys[] = { "link", "title", "date", "article_links" };
             const char *article_values[] = { link_href, link_title, date_line, tags_tag };
             char *article_template = render_template_file(TEMPLATE_ARTICLE_PATH, 4, article_keys, article_values);
+
+#if VERBOSE > 1
+  printf ("Line:%d\nlink_template:%s\n\n", __LINE__, article_template);
+#endif
 
             // Save the file
             FILE *fp = fopen (html_tag_file, "a");
@@ -256,7 +272,9 @@ main (int argc, char **argv)
     strcat(fullfilename, starting_dir);
     strcat(fullfilename, entry->d_name);
 
-    printf("%s\n", fullfilename);
+#if VERBOSE == 1
+  printf("%s\n", fullfilename);
+#endif
 
     char* tag_contents = read_file_contents(entry->d_name);
     if(tag_contents == NULL)
