@@ -8,8 +8,8 @@ The KB is at https://mhwkb.github.io/
 
 ## Project and site updates
 For now, we're using generic GitHub RSS feeds
- * [Web site changes](https://github.com/mhwkb/mhwkb.github.io/commits/master.atom)
- * [GitHub Project updates](https://github.com/andy5995/mhwkb/commits/master.atom)
+![RSS](images/rss_23x23.jpeg)[Web site changes](https://github.com/mhwkb/mhwkb.github.io/commits/master.atom)
+![RSS](images/rss_23x23.jpeg)[GitHub Project updates](https://github.com/andy5995/mhwkb/commits/master.atom)
 
 Do we need a mailing list for updates?
 
