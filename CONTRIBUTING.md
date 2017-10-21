@@ -73,6 +73,11 @@ repo with mine (remote upstream). GitHub has instructions for doing this:
     * For step 3 on that page, use https://github.com/andy5995/mhwkb for the URL.
 2. [Syncing a Fork](https://help.github.com/articles/syncing-a-fork/)
     * On that page, it shows how to merge the **master** branch (steps 4 & 5 of **Syncing a Fork**).
+    
+## CSS design (we use Bootstrap)
+If you haven't ever used Bootstrap or any CSS framework -
+* [Boostrap: Getting Started](https://getbootstrap.com/docs/3.3/getting-started/)
+* [w3schools: Bootstrap Intro](https://www.w3schools.com/bootstrap/bootstrap_get_started.asp)
 
 ## Testing / Generating HTML files and CSS
 In order for you to test the HTML files and CSS on your local computer you can do the following:
