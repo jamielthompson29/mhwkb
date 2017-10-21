@@ -86,6 +86,5 @@ In order for you to test the HTML files and CSS on your local computer you can d
 2. Change into the folder for the repo 
 3. Run ```make``` command to compile the C application
 4. Create a temporary directory for generated HTML files ```mkdir tmp```
-5. Run ```./mhwkb Knowledge_Base tmp```
-6. Copy the CSS file from templates folder ```cp templates/mhwkb_style.css tmp```
+5. Run ```./mhwkb Knowledge_Base/<LANG> tmp```
 7. Open the tmp/index.html file in your browser.
