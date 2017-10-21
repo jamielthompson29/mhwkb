@@ -62,7 +62,13 @@ main (int argc, char **argv)
     exit (EXIT_OPENDIR_FAILURE);
   }
 
-  printf ("%s\n", argv[1]);
+  /* Used for pagination: Not yet implemented
+   */
+  struct p page_calc[MAX_ARTICLES];
+
+  /* used later to stop a while loop in make_tags_real()
+   */
+  page_calc[0].tag[0] = '\0';
 
   char *articles[MAX_ARTICLES];
   int article_length = 0;
@@ -143,7 +149,9 @@ main (int argc, char **argv)
 
           char *article_links = malloc(TAGS_COMBINED_MAX_LEN + 1);
           memset(article_links, 0, TAGS_COMBINED_MAX_LEN + 1);
-          article_links = make_tags_real (tag_ctr, tags, article_links);
+
+          /* Strip any extra chars from the tags */
+          article_links = make_tags_real (tag_ctr, tags, article_links, page_calc);
 
           // Render the article templates
           const char *keys[] = { "link", "title", "date", "article_links" };
@@ -286,6 +294,16 @@ main (int argc, char **argv)
   {
     perror ("failure: close file\n");
     exit (1);
+  }
+
+     /* test the "tag database" (this will be removed)
+    */
+  int pos = 0;
+
+  while (page_calc[pos].tag[0]!= '\0')
+  {
+    printf ("$tag : %s | $instances : %d\n", page_calc[pos].tag, page_calc[pos].instances);
+    pos++;
   }
 
   return 0;

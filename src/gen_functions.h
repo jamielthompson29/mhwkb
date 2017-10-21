@@ -48,7 +48,8 @@ parse_tags_line (char *line, char tags[][TAG_MAX_LEN]);
 
 /* strip any code from the tags */
 char*
-make_tags_real (const int tag_ctr, char tags[][TAG_MAX_LEN], char *article_links);
+make_tags_real (const int tag_ctr, char tags[][TAG_MAX_LEN], char *article_links,
+  struct p *page_calc);
 
 void create_tag_html_files (const int tag_ctr, const char *output_dir,
   char tags[][TAG_MAX_LEN],

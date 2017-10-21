@@ -58,7 +58,7 @@
 #define TAG_MAX_NUM 10
 
 /* max string length of a tag */
-#define TAG_MAX_LEN 52
+#define TAG_MAX_LEN 80
 
 /* after the tags has been concatenated and the html code is applied */
 #define TAGS_COMBINED_MAX_LEN 1280
@@ -69,6 +69,13 @@
 
 /* line length when reading the md file */
 #define LINE_MAX_LEN 512
+
+/* pagination not yet implemented */
+struct p
+{
+  char tag[TAG_MAX_LEN];
+  int instances;
+};
 
 
 #endif

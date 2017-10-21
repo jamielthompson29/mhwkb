@@ -36,14 +36,6 @@
 #include "gen_functions.h"
 #include "template_functions.h"
 
-
-/* pagination not yet implemented */
-struct pagination_nav
-{
-  char page[HTML_FILENAME_MAX_LEN];
-  int count;
-};
-
 #define PASSES 1
 
 

@@ -137,7 +137,8 @@ int parse_tags_line (char *line, char tags[][TAG_MAX_LEN])
 
   return local_tag_ctr;
 }
-char* make_tags_real (const int tag_ctr, char tags[][TAG_MAX_LEN], char *article_links)
+char* make_tags_real (const int tag_ctr, char tags[][TAG_MAX_LEN], char *article_links,
+  struct p *page_calc)
 {
   int tag;
 
@@ -197,6 +198,44 @@ char* make_tags_real (const int tag_ctr, char tags[][TAG_MAX_LEN], char *article
 
     buf_check (article_links, TAGS_COMBINED_MAX_LEN);
   }
+
+  /* The tags should be stripped of all extra chars now
+   * pagination: Add to the tag database
+   */
+  for (tag = 0; tag < tag_ctr; tag++)
+  {
+    int pos = 0;
+    int existing =  0;
+
+    while (page_calc[pos].tag[0] != '\0' && pos < MAX_TAG_COUNT)
+    {
+      if (strcmp (page_calc[pos].tag, tags[tag]) == 0)
+      {
+        existing = 1;
+        break;
+      }
+      pos++;
+    }
+    if (!existing)
+    {
+      page_calc[pos].instances = 1;
+
+      /* Add a NULL terminator to the next position to
+       * mark where the last tag is located. Used for the
+       * while loop above.
+       */
+      page_calc[pos + 1].tag[0] = '\0';
+    }
+    else
+    {
+      page_calc[pos].instances++;
+    }
+
+    strcpy (page_calc[pos].tag, tags[tag]);
+    existing = 0;
+  }
+  /*
+   */
 
   return article_links;
 }
