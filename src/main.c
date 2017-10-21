@@ -37,22 +37,21 @@ main (int argc, char **argv)
   /* FIXME: Check for existence of directories */
   if (argc != 3)
   {
-    printf ("Usage: %s <md_file_dir> <starting_dir>\n", argv[0]);
+    printf ("Usage: %s <md_file_dir> <output-dir>\n", argv[0]);
     exit (EXIT_INVALID_ARGS);
   }
 
-  /* FIXME: This var should be changed to "output_dir" */
-  char starting_dir[PATH_MAX];
+  char output_dir[PATH_MAX + 1];
 
-  if (realpath (argv[2], starting_dir) == NULL)
+  if (realpath (argv[2], output_dir) == NULL)
   {
     perror ("realpath: failure");
     exit (EXIT_FAILURE);
   }
 
-  strcat (starting_dir, "/");
+  strcat (output_dir, "/");
   /* FIXME: display this and ask for confirmation */
-  printf ("  html files will be output to: %s\n\n", starting_dir);
+  printf ("  html files will be output to: %s\n\n", output_dir);
 
   struct dirent *entry;
   DIR *files;
@@ -84,9 +83,9 @@ main (int argc, char **argv)
       exit (1);
     }
 
-    char link_href[LINK_MAX_LEN];
+    char link_href[LINK_MAX_LEN + 1];
     char link_title[256];
-    char md_line[LINE_MAX_LEN];
+    char md_line[LINE_MAX_LEN + 1];
 
     char tags[TAG_MAX_NUM][TAG_MAX_LEN];
 
@@ -101,7 +100,7 @@ main (int argc, char **argv)
     int pass;
     for (pass = 1; pass <= PASSES; pass++)
     {
-      while (fgets (md_line, LINE_MAX_LEN + 1, md_file) != NULL)
+      while (fgets (md_line, LINE_MAX_LEN, md_file) != NULL)
       {
         link_href[0] = '\0';
         link_title[0] = '\0';
@@ -160,7 +159,7 @@ main (int argc, char **argv)
 
           articles[article_length++] = article_template;
 
-          create_tag_html_files (tag_ctr, starting_dir, tags, link_href, link_title, date_line);
+          create_tag_html_files (tag_ctr, output_dir, tags, link_href, link_title, date_line);
 
           free (date_line);
         }
@@ -178,14 +177,14 @@ main (int argc, char **argv)
   // Read the directory for all articles that are not index
   // Overwrite with the contents inserted into the index template
   // for the header and footer
-  DIR *article_files = opendir (starting_dir);
+  DIR *article_files = opendir (output_dir);
   if (article_files == NULL)
   {
     perror ("opendir");
     exit (EXIT_OPENDIR_FAILURE);
   }
 
-  chdir (starting_dir);
+  chdir (output_dir);
   while ((entry = readdir (article_files)) != NULL)
   {
     // Get the file contents to insert inside the template and rewrite
@@ -197,10 +196,9 @@ main (int argc, char **argv)
     memset(title_tag, 0, title_len + 1);
     strncpy(title_tag, entry->d_name, title_len);
 
-    char fullfilename[strlen(starting_dir) + 1 + strlen(entry->d_name) + 1];
-    memset(fullfilename, 0, strlen(starting_dir) + 1 + strlen(entry->d_name) + 1);
-    strcat(fullfilename, starting_dir);
-    strcat(fullfilename, entry->d_name);
+    char fullfilename[strlen(output_dir) + 1 + strlen(entry->d_name) + 1];
+    memset(fullfilename, 0, strlen(output_dir) + 1 + strlen(entry->d_name) + 1);
+    sprintf (strchr (fullfilename, '\0'), "%s%s", output_dir, entry->d_name);
 
 #if VERBOSE == 1
   printf("%s\n", fullfilename);
@@ -240,7 +238,7 @@ main (int argc, char **argv)
 
   // Write the index file
   char index_html[256];
-  sprintf (index_html, "%s/index.html", starting_dir);
+  sprintf (index_html, "%s/index.html", output_dir);
 
   char title_main[256];
   title_main[0] = '\0';

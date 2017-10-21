@@ -188,17 +188,17 @@ char* make_tags_real (const int tag_ctr, char tags[][TAG_MAX_LEN], char *article
 
     buf_check (article_link, LINK_MAX_LEN);
 
-    strcat(article_links, article_link);
+    sprintf (strchr(article_links, '\0'), "%s\n", article_link);
+
     free(article_link);
 
-    strcat(article_links, "\n");
     buf_check (article_links, TAGS_COMBINED_MAX_LEN);
   }
 
   return article_links;
 }
 
-void create_tag_html_files (const int tag_ctr, const char *starting_dir,
+void create_tag_html_files (const int tag_ctr, const char *output_dir,
   char tags[][TAG_MAX_LEN],
   const char *link_href, const char *link_title, const char *date_line)
 {
@@ -210,15 +210,24 @@ void create_tag_html_files (const int tag_ctr, const char *starting_dir,
   {
     char tag_html[HTML_FILENAME_MAX_LEN + 1];
     char html_tag_file[HTML_FILENAME_MAX_LEN + 1];
-    sprintf (html_tag_file, "%s%s.html", starting_dir, tags[tag]);
+    sprintf (html_tag_file, "%s%s.html", output_dir, tags[tag]);
+
+#if DEBUG == 1
+  printf ("%d\n", __LINE__);
+  printf ("%s\n", html_tag_file);
+#endif
 
     char tags_tag[TAGS_COMBINED_MAX_LEN + 1];
     memset(tags_tag, 0, TAGS_COMBINED_MAX_LEN + 1);
     int tag;
     for (tag = 0; tag < tag_ctr; tag++)
     {
-      strcpy (tag_html, tags[tag]);
-      strcat (tag_html, ".html");
+      snprintf (tag_html, HTML_FILENAME_MAX_LEN, "%s.html", tags[tag]);
+
+#if DEBUG == 1
+  printf ("%d\n", __LINE__);
+  printf ("%s\n\n", tag_html);
+#endif
 
       const char *link_keys[] = { "link", "title" };
       const char *link_values[] = { tag_html, tags[tag] };
@@ -228,11 +237,12 @@ void create_tag_html_files (const int tag_ctr, const char *starting_dir,
   printf ("Line:%d\nlink_template:%s\n\n", __LINE__, link_template);
   #endif
 
-      strcat (tags_tag, link_template);
-      /* this should fix issue #92 */
-      strcat (tags_tag, "\n");
-      /*
-       */
+      sprintf (strchr (tags_tag, '\0'), "%s\n", link_template);
+
+#if DEBUG == 1
+  printf ("%d\n", __LINE__);
+  printf ("%s\n\n", tags_tag);
+#endif
 
       free(link_template);
     }
