@@ -42,14 +42,14 @@
 #define EXIT_INVALID_ARGS 2
 #define EXIT_OPENDIR_FAILURE 4
 
-#define VERSION ".0.0.16"
+#define VERSION ".0.0.17"
 #define DATE "2017-10-21"
 
-#define DEBUG  0
+#define DEBUG 0
 
 #define TEMPLATE_INDEX_PATH "../templates/index.html"
-#define TEMPLATE_ARTICLE_PATH "../templates/article.html"
-#define TEMPLATE_ARTLNK_PATH "../templates/article_link.html"
+#define TEMPLATE_ARTICLE_PATH "../../templates/article.html"
+#define TEMPLATE_ARTLNK_PATH "../../templates/article_link.html"
 
 #define MAX_ARTICLES 500
 #define MAX_TAG_COUNT 500
