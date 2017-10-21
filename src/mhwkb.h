@@ -42,7 +42,7 @@
 #define EXIT_INVALID_ARGS 2
 #define EXIT_OPENDIR_FAILURE 4
 
-#define VERSION ".0.0.17"
+#define VERSION ".0.0.18"
 #define DATE "2017-10-21"
 
 #define DEBUG 0

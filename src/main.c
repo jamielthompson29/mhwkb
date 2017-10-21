@@ -296,8 +296,9 @@ main (int argc, char **argv)
     exit (1);
   }
 
-     /* test the "tag database" (this will be removed)
-    */
+  /* test the "tag database" (this will be removed)
+  */
+  /*
   int pos = 0;
 
   while (page_calc[pos].tag[0]!= '\0')
@@ -305,6 +306,7 @@ main (int argc, char **argv)
     printf ("$tag : %s | $instances : %d\n", page_calc[pos].tag, page_calc[pos].instances);
     pos++;
   }
-
+  */
+  printf ("No fatal errors reported\n");
   return 0;
 }
