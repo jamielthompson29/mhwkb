@@ -106,7 +106,10 @@ int parse_tags_line (char *line, char tags[][TAG_MAX_LEN])
   tag_Ptr = strtok (line, ",");
 
   /* pointer to each tag. Used to check for a space in a tag and
-   * replace to an underscore */
+   * replace to an underscore
+   *
+   * FIXME: It might be slightly better if this were done in make_tags_real()
+   */
   char *tp;
   int local_tag_ctr = 0;
 
@@ -213,8 +216,8 @@ void create_tag_html_files (const int tag_ctr, const char *output_dir,
     sprintf (html_tag_file, "%s%s.html", output_dir, tags[tag]);
 
 #if DEBUG == 1
-  printf ("%d\n", __LINE__);
-  printf ("%s\n", html_tag_file);
+  printf ("%s : %d\n", __func__, __LINE__);
+  printf ("$html_tag_file:%s\n", html_tag_file);
 #endif
 
     char tags_tag[TAGS_COMBINED_MAX_LEN + 1];
@@ -225,23 +228,24 @@ void create_tag_html_files (const int tag_ctr, const char *output_dir,
       snprintf (tag_html, HTML_FILENAME_MAX_LEN, "%s.html", tags[tag]);
 
 #if DEBUG == 1
-  printf ("%d\n", __LINE__);
-  printf ("%s\n\n", tag_html);
+  printf ("%s : %d\n", __func__, __LINE__);
+  printf ("$tag_html:%s\n\n", tag_html);
 #endif
 
       const char *link_keys[] = { "link", "title" };
       const char *link_values[] = { tag_html, tags[tag] };
       char *link_template = render_template_file(TEMPLATE_ARTLNK_PATH, 2, link_keys, link_values);
 
-  #if VERBOSE > 1
-  printf ("Line:%d\nlink_template:%s\n\n", __LINE__, link_template);
-  #endif
+#if DEBUG == 1
+  printf ("%s : %d\n", __func__, __LINE__);
+  printf ("$link_template:%s\n\n", link_template);
+#endif
 
       sprintf (strchr (tags_tag, '\0'), "%s\n", link_template);
 
 #if DEBUG == 1
   printf ("%d\n", __LINE__);
-  printf ("%s\n\n", tags_tag);
+  printf ("$tags_tag:%s\n\n", tags_tag);
 #endif
 
       free(link_template);
@@ -252,9 +256,10 @@ void create_tag_html_files (const int tag_ctr, const char *output_dir,
     const char *article_values[] = { link_href, link_title, date_line, tags_tag };
     char *article_template = render_template_file(TEMPLATE_ARTICLE_PATH, 4, article_keys, article_values);
 
-  #if VERBOSE > 1
-  printf ("Line:%d\nlink_template:%s\n\n", __LINE__, article_template);
-  #endif
+#if DEBUG == 1
+  printf ("%s : %d\n", __func__, __LINE__);
+  printf ("$link_template:%s\n\n", article_template);
+#endif
 
     // Save the file
     FILE *fp = fopen (html_tag_file, "a");
@@ -264,6 +269,11 @@ void create_tag_html_files (const int tag_ctr, const char *output_dir,
       printf ("%s\n", html_tag_file);
       exit (1);
     }
+
+#if DEBUG == 1
+  printf ("%s : %d\n", __func__, __LINE__);
+  printf ("$article_template%s\n\n", article_template);
+#endif
 
     fprintf (fp, "%s", article_template);
     free(article_template);

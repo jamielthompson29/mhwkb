@@ -201,7 +201,8 @@ main (int argc, char **argv)
     sprintf (strchr (fullfilename, '\0'), "%s%s", output_dir, entry->d_name);
 
 #if VERBOSE == 1
-  printf("%s\n", fullfilename);
+  printf ("%s : %d\n", __func__, __LINE__);
+  printf ("%s\n\n", fullfilename);
 #endif
 
     char* tag_contents = read_file_contents(entry->d_name);
@@ -224,6 +225,11 @@ main (int argc, char **argv)
       printf ("%s\n", entry->d_name);
       exit (1);
     }
+
+#if DEBUG == 1
+  printf ("%s : %d\n", __func__, __LINE__);
+  printf ("$index_template%s\n\n", index_template);
+#endif
 
     fprintf (fp, "%s", index_template);
     free(index_template);
