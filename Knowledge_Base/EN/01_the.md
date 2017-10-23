@@ -1,5 +1,4 @@
 [The Real Deal Versus Generics in Psychoactive Meds](https://acanvasoftheminds.com/2012/11/23/the-real-deal-versus-generics-in-psychoactive-meds/)<br />
-2012-11-23<br />
 "tags": ["blogs", "viewpoint", "generic drugs", "medication", "personal stories", "Wellbutrin"]<br />
 -<br />
 [The Icarus Project](http://theicarusproject.net/)<br />

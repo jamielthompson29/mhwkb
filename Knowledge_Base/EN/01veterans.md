@@ -1,5 +1,4 @@
 [Mental Health Problems, Use of Mental Health Services, and Attrition From Military Service After Returning From Deployment to Iraq or Afghanistan](http://jamanetwork.com/journals/jama/fullarticle/202463)<br />
-2006-03-01<br />
 "tags": ["veterans", "treatment", "studies", "research", "USA", "iraq", "afghanistan"]<br />
 -<br />
 [The Mental Health Home for Veterans Affairs](https://www.mentalhealth.va.gov/)<br />
