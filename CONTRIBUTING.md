@@ -13,7 +13,7 @@ with the work you want to do.**
 
 ## Communication
   * [Chat (Slack Workspace)](https://join.slack.com/t/mhwkb/shared_invite/enQtMjU3MjcwMTk4NjYzLTA0ZDc2YjAwMDJiNTU1YTBmYTViNmQ5MTdjOTk2MDA2MDMyMzNiYjU4ZWIzMTZlNmU4ZjFhNDg1MjQ5OGQyMjI)
-  * [Create or Discuss Issues](https://github.com/andy5995/mhwkb/issues)
+  * [Create or Discuss Issues](https://github.com/mhwkb/mhwkb/issues)
 
 ## Tags
 * tags should be specific
@@ -68,7 +68,7 @@ Periodically, especially before starting a new patch, you'll need the sync your
 repo with mine (remote upstream). GitHub has instructions for doing this:
 
 1. [Configuring a remote for a fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/)
-    * For step 3 on that page, use https://github.com/andy5995/mhwkb for the URL.
+    * For step 3 on that page, use https://github.com/mhwkb/mhwkb for the URL.
 2. [Syncing a Fork](https://help.github.com/articles/syncing-a-fork/)
     * On that page, it shows how to merge the **master** branch (steps 4 & 5 of **Syncing a Fork**).
 
