@@ -11,6 +11,8 @@ ls >> $FILENAME_AND_PATH
 
 sed -i 's/.html//g' $FILENAME_AND_PATH
 
+sed -i '/tags.txt/d' $FILENAME_AND_PATH
+
 sed -i '/LICENSE/d' $FILENAME_AND_PATH
 sed -i '/README.md/d' $FILENAME_AND_PATH
 sed -i '/mhwkb_style.css/d' $FILENAME_AND_PATH
