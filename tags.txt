@@ -2,115 +2,168 @@ List of Existing Tags
 
 If you need suggestions for tags, this is a good list for reference.
 
-Last updated 2017-10-11
+Last updated 2017-10-20
 
 ABPP
-advocacy
-afghanistan
+ADHD
 AHRP
-Alison Bass
+Aboriginal_and_Torres_Strait_Islander_people
+Alison_Bass
+Australia
+Ben_Goldacre
+Buddhism
+Canada
+Christine_Musello
+DS4P
+David_Cohen
+David_Healy
+David_M_Allen
+FDA
+Facebook
+GPLv3
+GitHub
+John_Abramson
+Jonice_Webb
+Kelly_Brogan
+LGBTQ
+Lisa_Cosgrove
+MIT
+Marcia_Angell
+Marsha_Linehan
+Monica_Cassani
+NAMI
+OCD
+Otis_Webb_Brawley
+Peter_Breggin
+PhD
+Robert_Whitaker
+SAMHSA
+Thich_Nhat_Hanh
+UN
+USA
+Wellbutrin
+Will_Hall
+advice
+advocacy
+affordable
+afghanistan
+antidepressants
 art
 authors
 awareness
-Ben Goldacre
-bipolar disorder
+bipolar_disorder
 blogs
 books
 breathing
-Buddhism
-Christine Musello
+breathing_exercises
+chat
+children
+chiropractors
+christian
 collaborative
 collection
+communication
 community
 conflicts-of-interest
+convenient_hours
+coping
 crime
 crisis
-David Cohen
-David Healy
-David M Allen
 dbt
 death
 depression
 directories
+directory
 discussion
 doctors
-DS4P
 education
 emergency
-Facebook
+exposure_therapy
 family
+forum
+forums
+free_trial
+friendships
+generic_drugs
 government
-GPLv3
-health care
-human rights
-human rights
-humour
+grief_and_loss
+health_care
+health_risks
+human_rights
+humor
 ignore
 illness
+index
+integrative
 iraq
-John Abramson
-Jonice Webb
 journal
 journalism
-Lisa Cosgrove
-loved one
-Marcia Angell
-Marsh Linehan
-M.D.
+mates
 medication
-mental health
-mental health services
-military
+meditation
+medium
+men
+mental_health
 mindfulness
-MIT
-music therapy
-NAMI
+mothers
+music_therapy
+negativity
 news
-nodejs
 no-longer-updated
+nodejs
 non-pharmacological
 notifier
-open source
-Otis Webb Brawley
+nutrition
+online_counseling
+open_source
 over-arching
-personal stories
-Peter Breggin
+personal_stories
 pharmacists
-PhD
 podcast
-press releases
-psychiatrists
+pregnancy
+press_releases
+providing_support
+psychiatric_survivor
+psychiatric_survivor_movement
 psychiatry
-psychopharmacologists
+public_schools
 publication
-public schools
 python
 research
 resources
 retreat
-Robert Whitaker
-SAMHSA
-scientists
+safety
+schizophrenia
 self-care
 self-expression
-self help
-social justice
+self_help
+selfcare
+seniors
+smartphone_app
+smartwatch_app
+social_justice
 spirituality
 ssri
 stigma
 stories
-substance abuse
+studies
+substance_abuse
 suicide
-suicide prevention
+suicide_prevention
+support
 symptoms
 teaching
-tech industry
+tech_industry
+technology
 therapy
-Thich Nhat Hanh
 training
-USA
+treatment
 veterans
+videos
 viewpoint
-visual story
+visual_story
+web_portal
+withdrawal
+wordpress
+workplace
 youth
-youtube
