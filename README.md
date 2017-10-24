@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.org/andy5995/mhwkb.svg?branch=master)](https://travis-ci.org/andy5995/mhwkb)
+[![Build Status](https://travis-ci.org/mhwkb/mhwkb.svg?branch=master)](https://travis-ci.org/mhwkb/mhwkb)
 
 # mhwKB
 Mental Health and Wellness Knowledge Base
@@ -10,8 +10,8 @@ The KB is at https://mhwkb.github.io/
 For now, we're using generic GitHub RSS feeds<br />
   [![RSS](images/rss_23x23.jpeg)](https://github.com/mhwkb/mhwkb.github.io/commits/master.atom)
   [Web site updates](https://github.com/mhwkb/mhwkb.github.io/commits/master.atom)<br />
-  [![RSS](images/rss_23x23.jpeg)](https://github.com/andy5995/mhwkb/commits/master.atom)
-  [GitHub Project updates](https://github.com/andy5995/mhwkb/commits/master.atom)
+  [![RSS](images/rss_23x23.jpeg)](https://github.com/mhwkb/mhwkb/commits/master.atom)
+  [GitHub Project updates](https://github.com/mhwkb/mhwkb/commits/master.atom)
 
 Do we need a mailing list for updates?
 
@@ -71,4 +71,4 @@ have contributed)
 ## Contact
 * Andy Alt (andy400-dev@yahoo.com)
 * [Chat (Slack Workspace)](https://join.slack.com/t/mhwkb/shared_invite/enQtMjU3MjcwMTk4NjYzLTA0ZDc2YjAwMDJiNTU1YTBmYTViNmQ5MTdjOTk2MDA2MDMyMzNiYjU4ZWIzMTZlNmU4ZjFhNDg1MjQ5OGQyMjI)
-* [Issues](https://github.com/andy5995/mhwkb/issues)
+* [Issues](https://github.com/mhwkb/mhwkb/issues)
