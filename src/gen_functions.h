@@ -53,6 +53,6 @@ make_tags_real (const int tag_ctr, char tags[][TAG_MAX_LEN], char *article_links
 
 void create_tag_html_files (const int tag_ctr, const char *output_dir,
   char tags[][TAG_MAX_LEN],
-  const char *link_href, const char *link_title, const char *date_line);
+  const char *link_href, const char *link_title);
 
 #endif
