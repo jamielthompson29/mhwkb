@@ -47,8 +47,8 @@ sites to which the Knowledge Base links.
 Please note: doctors recommend that no one should attempt to withdrawal
 from psychiatric drugs (Antidepressants, Antipsychotics, Anti-anxiety drugs
 and ADHD drugs) without a doctor's supervision. If you have firmly decided to
-discontinue medication without a doctor's supervision, you may find some guides
-to medication on Amazon or other book-selling sites.
+discontinue medication without a doctor's supervision, you can find some guides
+to medication withdrawal (a.k.a. [_discontinuation syndrome_](https://psychcentral.com/lib/what-is-discontinuation-syndrome/)) on book-selling sites, or sites such as [The Icarus Project](http://theicarusproject.net/).
 
 ## About Andy Alt (Project Owner)
 I first received treatment for mental health issues (major depression, anxiety,
