@@ -242,7 +242,7 @@ char* make_tags_real (const int tag_ctr, char tags[][TAG_MAX_LEN], char *article
 
 void create_tag_html_files (const int tag_ctr, const char *output_dir,
   char tags[][TAG_MAX_LEN],
-  const char *link_href, const char *link_title, const char *date_line)
+  const char *link_href, const char *link_title)
 {
   /* Now that we know all the tags for one entry, make the <tag>.html
    * files
@@ -291,9 +291,9 @@ void create_tag_html_files (const int tag_ctr, const char *output_dir,
     }
 
     // Render the article templates
-    const char *article_keys[] = { "link", "title", "date", "article_links" };
-    const char *article_values[] = { link_href, link_title, date_line, tags_tag };
-    char *article_template = render_template_file(TEMPLATE_ARTICLE_PATH, 4, article_keys, article_values);
+    const char *article_keys[] = { "link", "title", "article_links" };
+    const char *article_values[] = { link_href, link_title, tags_tag };
+    char *article_template = render_template_file(TEMPLATE_ARTICLE_PATH, 3, article_keys, article_values);
 
 #if DEBUG == 1
   printf ("%s : %d\n", __func__, __LINE__);

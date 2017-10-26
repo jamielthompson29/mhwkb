@@ -135,12 +135,6 @@ main (int argc, char **argv)
           }
           link_href[href_pos++] = '\0';
 
-          // Get the date
-          fgets (md_line, LINE_MAX_LEN, md_file);
-          char *date_line = malloc (128);
-          memset(date_line, 0, 128);
-          strcpy (date_line, md_line);
-
           /* get the tags */
           fgets (md_line, LINE_MAX_LEN, md_file);
 
@@ -154,9 +148,9 @@ main (int argc, char **argv)
           article_links = make_tags_real (tag_ctr, tags, article_links, page_calc);
 
           // Render the article templates
-          const char *keys[] = { "link", "title", "date", "article_links" };
-          const char *values[] = { link_href, link_title, date_line, article_links };
-          char *article_template = render_template_file(TEMPLATE_ARTICLE_PATH, 4, keys, values);
+          const char *keys[] = { "link", "title", "article_links" };
+          const char *values[] = { link_href, link_title, article_links };
+          char *article_template = render_template_file(TEMPLATE_ARTICLE_PATH, 3, keys, values);
           free(article_links);
 
           // Error if we are about to over flow MAX_ARTICLES
@@ -167,9 +161,8 @@ main (int argc, char **argv)
 
           articles[article_length++] = article_template;
 
-          create_tag_html_files (tag_ctr, output_dir, tags, link_href, link_title, date_line);
+          create_tag_html_files (tag_ctr, output_dir, tags, link_href, link_title);
 
-          free (date_line);
         }
       }
     }
