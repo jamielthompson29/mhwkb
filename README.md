@@ -60,6 +60,9 @@ health care system. I have also read information written by journalists and
 doctors. I have no formal education in biology, medicine, psychiatry, or
 psychology.
 
+[Damned Tears](https://medium.com/@andy011973/when-i-was-8-years-old-in-1981-my-father-committed-suicide-55b5865fffe3)
+was written while healing from my father's suicide.
+
 ## Contributing to the KB
 * [Contributing](CONTRIBUTING.md)
 * [List of Contributors](CONTRIBUTORS.md) (Please add your name if you
