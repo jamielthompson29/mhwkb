@@ -3,7 +3,7 @@
 Thank you for your interest in this project...
 
 ## Inquiring about an Issue
-**If you find an issue that interests you, please leave a note asking about it first. If 
+**If you find an issue that interests you, please leave a note asking about it first. If
 you don't, someone else may, and I will have to accept his or her patch/PR. It's best
 to leave a note so everyone knows who the patch is assigned to, and won't interfere
 with the work you want to do.**
@@ -13,7 +13,7 @@ with the work you want to do.**
 
 ## Communication
   * [Chat (Slack Workspace)](https://join.slack.com/t/mhwkb/shared_invite/enQtMjU3MjcwMTk4NjYzLTA0ZDc2YjAwMDJiNTU1YTBmYTViNmQ5MTdjOTk2MDA2MDMyMzNiYjU4ZWIzMTZlNmU4ZjFhNDg1MjQ5OGQyMjI)
-  * [Create or Discuss Issues](https://github.com/andy5995/mhwkb/issues)
+  * [Create or Discuss Issues](https://github.com/mhwkb/mhwkb/issues)
 
 ## Tags
 * tags should be specific
@@ -27,13 +27,11 @@ to "mental health", which makes the tag unnecessary.
 * Don't use synonyms. (ex. "veterans" is good, but don't add military. It's
 implied. If the links is more broadly about the military, then it's okay to
 use "military" and "veterans".
-* Date format YYYY-MM-DD
-  * Articles, news that have dates
-  * Books (just the year if the date of publication is difficult to determine
-    * Some books in the KB use "na" for the date. Please feel free to add the
-    date and submit a PR.
-* If you're not sure what tags to use, don't spend any time worrying about it. Ask in the 
+* If you're not sure what tags to use, don't spend any time worrying about it. Ask in the
   chat room or make a comment when you submit your pull request.
+
+## Dates
+No longer used, in the process of removing (October 23, 2017)
 
 ## Notes on Categorization
 Links starting with:
@@ -70,10 +68,10 @@ Periodically, especially before starting a new patch, you'll need the sync your
 repo with mine (remote upstream). GitHub has instructions for doing this:
 
 1. [Configuring a remote for a fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/)
-    * For step 3 on that page, use https://github.com/andy5995/mhwkb for the URL.
+    * For step 3 on that page, use https://github.com/mhwkb/mhwkb for the URL.
 2. [Syncing a Fork](https://help.github.com/articles/syncing-a-fork/)
     * On that page, it shows how to merge the **master** branch (steps 4 & 5 of **Syncing a Fork**).
-    
+
 ## CSS design (we use Bootstrap)
 If you haven't ever used Bootstrap or any CSS framework -
 * [Boostrap: Getting Started](https://getbootstrap.com/docs/3.3/getting-started/)
@@ -83,7 +81,7 @@ If you haven't ever used Bootstrap or any CSS framework -
 In order for you to test the HTML files and CSS on your local computer you can do the following:
 
 1. Clone the repo to your computer (if you have not done so already)
-2. Change into the folder for the repo 
+2. Change into the folder for the repo
 3. Run ```make``` command to compile the C application
 4. Create a temporary directory for generated HTML files ```mkdir tmp```
 5. Run ```./mhwkb Knowledge_Base/<LANG> tmp```

@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.org/andy5995/mhwkb.svg?branch=master)](https://travis-ci.org/andy5995/mhwkb)
+[![Build Status](https://travis-ci.org/mhwkb/mhwkb.svg?branch=master)](https://travis-ci.org/mhwkb/mhwkb)
 
 # mhwKB
 Mental Health and Wellness Knowledge Base
@@ -10,8 +10,8 @@ The KB is at https://mhwkb.github.io/
 For now, we're using generic GitHub RSS feeds<br />
   [![RSS](images/rss_23x23.jpeg)](https://github.com/mhwkb/mhwkb.github.io/commits/master.atom)
   [Web site updates](https://github.com/mhwkb/mhwkb.github.io/commits/master.atom)<br />
-  [![RSS](images/rss_23x23.jpeg)](https://github.com/andy5995/mhwkb/commits/master.atom)
-  [GitHub Project updates](https://github.com/andy5995/mhwkb/commits/master.atom)
+  [![RSS](images/rss_23x23.jpeg)](https://github.com/mhwkb/mhwkb/commits/master.atom)
+  [GitHub Project updates](https://github.com/mhwkb/mhwkb/commits/master.atom)
 
 Do we need a mailing list for updates?
 
@@ -47,8 +47,8 @@ sites to which the Knowledge Base links.
 Please note: doctors recommend that no one should attempt to withdrawal
 from psychiatric drugs (Antidepressants, Antipsychotics, Anti-anxiety drugs
 and ADHD drugs) without a doctor's supervision. If you have firmly decided to
-discontinue medication without a doctor's supervision, you may find some guides
-to medication on Amazon or other book-selling sites.
+discontinue medication without a doctor's supervision, you can find some guides
+to medication withdrawal (a.k.a. [_discontinuation syndrome_](https://psychcentral.com/lib/what-is-discontinuation-syndrome/)) on book-selling sites, or sites such as [The Icarus Project](http://theicarusproject.net/).
 
 ## About Andy Alt (Project Owner)
 I first received treatment for mental health issues (major depression, anxiety,
@@ -59,6 +59,9 @@ negative and positive experiences consumers have had while using the mental
 health care system. I have also read information written by journalists and
 doctors. I have no formal education in biology, medicine, psychiatry, or
 psychology.
+
+[Damned Tears](https://medium.com/@andy011973/when-i-was-8-years-old-in-1981-my-father-committed-suicide-55b5865fffe3)
+was written while healing from my father's suicide.
 
 ## Contributing to the KB
 * [Contributing](CONTRIBUTING.md)
@@ -71,4 +74,4 @@ have contributed)
 ## Contact
 * Andy Alt (andy400-dev@yahoo.com)
 * [Chat (Slack Workspace)](https://join.slack.com/t/mhwkb/shared_invite/enQtMjU3MjcwMTk4NjYzLTA0ZDc2YjAwMDJiNTU1YTBmYTViNmQ5MTdjOTk2MDA2MDMyMzNiYjU4ZWIzMTZlNmU4ZjFhNDg1MjQ5OGQyMjI)
-* [Issues](https://github.com/andy5995/mhwkb/issues)
+* [Issues](https://github.com/mhwkb/mhwkb/issues)

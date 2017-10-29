@@ -2,115 +2,168 @@ List of Existing Tags
 
 If you need suggestions for tags, this is a good list for reference.
 
-Last updated 2017-10-11
+Last updated 2017-10-22
 
+Aboriginal_and_Torres_Strait_Islander_people
 ABPP
+ADHD
+advice
 advocacy
+affordable
 afghanistan
 AHRP
-Alison Bass
+Alison_Bass
+antidepressants
 art
+Australia
 authors
 awareness
-Ben Goldacre
-bipolar disorder
+Ben_Goldacre
+bipolar_disorder
 blogs
 books
+breathing_exercises
 breathing
 Buddhism
-Christine Musello
+Canada
+chat
+children
+chiropractors
+christian
+Christine_Musello
 collaborative
 collection
+communication
 community
 conflicts-of-interest
+convenient_hours
+coping
 crime
 crisis
-David Cohen
-David Healy
-David M Allen
+David_Cohen
+David_Healy
+David_M_Allen
 dbt
 death
 depression
-directories
+directory
 discussion
 doctors
 DS4P
 education
 emergency
+exposure_therapy
 Facebook
 family
+FDA
+forum
+forums
+free_trial
+friendships
+friends
+generic_drugs
+GitHub
 government
 GPLv3
-health care
-human rights
-human rights
-humour
-ignore
+grief_and_loss
+health_care
+health_risks
+human_rights
+humor
 illness
+index
+integrative
 iraq
-John Abramson
-Jonice Webb
+John_Abramson
+Jonice_Webb
 journal
 journalism
-Lisa Cosgrove
-loved one
-Marcia Angell
-Marsh Linehan
-M.D.
+Kelly_Brogan
+LGBTQ
+Lisa_Cosgrove
+Marcia_Angell
+Marsha_Linehan
+mates
 medication
-mental health
-mental health services
-military
+meditation
+medium
+men
 mindfulness
 MIT
-music therapy
+Monica_Cassani
+mothers
+music_therapy
 NAMI
+negativity
 news
 nodejs
 no-longer-updated
 non-pharmacological
 notifier
-open source
-Otis Webb Brawley
-over-arching
-personal stories
-Peter Breggin
+nutrition
+OCD
+online_counseling
+open_source
+Otis_Webb_Brawley
+personal_stories
+Peter_Breggin
 pharmacists
 PhD
 podcast
-press releases
-psychiatrists
+pregnancy
+press_releases
+providing_support
+psychiatric_survivor
+psychiatric_survivor_movement
 psychiatry
-psychopharmacologists
 publication
-public schools
+public_schools
 python
+react
 research
 resources
 retreat
-Robert Whitaker
+Robert_Whitaker
+ruby
+safety
 SAMHSA
-scientists
+schizophrenia
 self-care
+selfcare
 self-expression
-self help
-social justice
+self-harm
+self_help
+seniors
+smartphone_app
+smartwatch_app
+social_justice
 spirituality
 ssri
 stigma
 stories
-substance abuse
+studies
+substance_abuse
 suicide
-suicide prevention
+suicide_prevention
+support
 symptoms
 teaching
-tech industry
+tech_industry
+technology
 therapy
-Thich Nhat Hanh
+Thich_Nhat_Hanh
 training
+treatment
+UN
 USA
 veterans
+videos
 viewpoint
-visual story
+visual_story
+web_portal
+Wellbutrin
+Will_Hall
+withdrawal
+wordpress
+workplace
 youth
-youtube
